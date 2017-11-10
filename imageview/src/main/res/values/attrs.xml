@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundImageView">
+        <!-- 边框线宽度 -->
+        <attr name="borderWidth" format="dimension" />
+        <!-- 边框线颜色 -->
+        <attr name="borderColor" format="color" />
+        <!-- 是否显示边框线 -->
+        <attr name="displayBorder" format="boolean" />
+        <!-- 左上角圆弧半径 -->
+        <attr name="leftTopRadius" format="dimension" />
+        <!-- 右上角圆弧半径 -->
+        <attr name="rightTopRadius" format="dimension" />
+        <!-- 左下角圆弧半径 -->
+        <attr name="leftBottomRadius" format="dimension" />
+        <!-- 右下角圆弧半径 -->
+        <attr name="rightBottomRadius" format="dimension" />
+        <!-- 显示类型 -->
+        <attr name="displayType" format="enum">
+            <!-- 矩形 -->
+            <enum name="normal" value="0" />
+            <!-- 圆形 -->
+            <enum name="circle" value="1" />
+            <!-- 圆角矩形 -->
+            <enum name="round_rect" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
