@@ -40,6 +40,31 @@ RoundImageView
     
 ### 使用方式：
 
+* <b style="font-size: 18px">第一种方式：从jitpack库引入</b>[![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)
+   
+    ##### 1. 在项目的build.gradle中<font style="color: red">(非app/build.gradle)</font>添加"maven { url 'https://jitpack.io' }"
+
+        allprojects {
+            repositories {
+                ...
+                maven { url 'https://jitpack.io' }
+            }
+        }
+   
+    ##### 2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0'"
+
+        dependencies {
+                compile 'com.github.xuxuliooo:RoundImageView:1.0'
+        }
+
+* <b style="font-size: 18px">第二种方式：从bintray库引入</b>
+   
+    ##### 直接在app/build.gradle中添加"compile 'com.cb.imageview:RoundImageView:1.0'"
+
+        dependencies {
+                compile 'com.cb.imageview:RoundImageView:1.0'
+        }
+
 
 * <b>圆角矩形</b>
     * 自定义四角圆弧半径的大小
@@ -90,4 +115,4 @@ RoundImageView
             app:displayType="normal" />
             
 
-[![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)
+
