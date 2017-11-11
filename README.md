@@ -18,3 +18,5 @@
             app:rightBottomRadius="15dp"
             app:rightTopRadius="5dp" />
             
+ 
+<image src="https://github.com/xuxuliooo/RoundImageView/blob/master/image/%E6%A0%B7%E5%BC%8F%E5%9B%BE%E7%89%87.png"/>
