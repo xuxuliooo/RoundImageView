@@ -66,7 +66,7 @@ RoundImageView
         }
 
 
-* <b>圆角矩形</b>
+* <b>圆角矩形使用方式</b>
     * 自定义四角圆弧半径的大小
     
             <com.cb.imageview.RoundImageView
@@ -94,7 +94,7 @@ RoundImageView
                 app:displayType="round_rect"
                 app:radius="20dp" />
 
-* <b>圆形</b>
+* <b>圆形使用方式</b>
 
         <com.cb.imageview.RoundImageView
             android:layout_width="100dp"
@@ -104,7 +104,7 @@ RoundImageView
             app:borderWidth="1dp"
             app:displayType="circle" />
             
-* <b>矩形</b>
+* <b>矩形使用方式</b>
 
         <com.cb.imageview.RoundImageView
             android:layout_width="100dp"
