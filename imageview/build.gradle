@@ -40,7 +40,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name 'A RoundImageView, The rounded, rounded corners and border effects are achieved'     //项目的描述 你可以多写一点
+                name 'A RoundImageView, The rounded, rounded corners and border effects are achieved' //项目的描述
                 url siteUrl
                 // Set your license
                 licenses {
@@ -51,7 +51,7 @@ install {
                 }
                 developers {
                     developer {
-                        id 'xuxuliooo'        //填写的一些基本信息
+                        id 'xuxuliooo'  //基本信息
                         name 'chenbo'
                         email 'chenbohc@163.com'
                     }
