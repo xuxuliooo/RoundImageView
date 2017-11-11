@@ -1,4 +1,5 @@
-#RoundImageView
+RoundImageView
+====
 自定义ImageView，在原生ImageView上实现圆形显示和加入圆角并且加入边框功能
 ----
 
@@ -32,21 +33,9 @@
 
         显示类型，默认为圆形(circle)。
         
-    * <b>normal</b><font>矩形显示</font>
-    * <b>circle</b><font>圆形显示</font>
-    * <b>round_rect</b><font>圆角矩形显示</font>
-    
-    
-<style type="css/text">
-
-    b{
-        font-size: 16px;
-        font-family: "微软雅黑"
-    }
-    font{
-        margin-left: 15px;
-    }
-</style>
+    * <b>normal</b><font style="margin-left:15px">矩形显示</font>
+    * <b>circle</b><font style="margin-left:15px">圆形显示</font>
+    * <b>round_rect</b><font style="margin-left:15px">圆角矩形显示</font>
     
 ### 使用方式：
 
@@ -101,4 +90,5 @@
             
 
 
-####[我的博客](https:xuxuliooo.github.io "悬浮显示")
+[我的博客](https:xuxuliooo.github.io "悬浮显示")
+--
