@@ -1,13 +1,16 @@
 RoundImageView
-====
+==
 自定义ImageView，在原生ImageView上实现圆形显示和加入圆角并且加入边框功能
-----
+--
+
 
 ### 显示效果
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-### 自定义属性介绍
+
+自定义属性介绍
+--
 
 * <b>borderWidth</b>
 
@@ -38,7 +41,9 @@ RoundImageView
     * <b>circle</b><font style="margin-left:15px">圆形显示</font>
     * <b>round_rect</b><font style="margin-left:15px">圆角矩形显示</font>
     
-### 使用方式：
+    
+项目引用方式：
+---
 
 * <b style="font-size: 18px">第一种方式：从jitpack存储库引入</b>[![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)
    
@@ -65,6 +70,9 @@ RoundImageView
                 compile 'com.cb.imageview:RoundImageView:1.0'
         }
 
+
+使用方式：
+--
 
 * <b>圆角矩形使用方式</b>
     * 自定义四角圆弧半径的大小
