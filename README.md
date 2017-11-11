@@ -23,7 +23,8 @@ RoundImageView
 
 * <b>radius</b>
 
-        圆角矩形圆弧半径，默认为"0"，如果设置大于"0"，则设置(leftTopRadius、rightTopRadius、leftBottomRadius、rightBottomRadius)属性会失效
+        圆角矩形圆弧半径，默认为"0"，如果设置大于"0",
+        则设置(leftTopRadius、rightTopRadius、leftBottomRadius、rightBottomRadius)属性会失效
 
 * <b>leftTopRadius(左上角圆弧半径) <br> leftBottomRadius(左下角圆弧半径) <br> rightTopRadius(右上角圆弧半径) <br> rightBottomRadius(右下角圆弧半径)</b>
 
