@@ -5,7 +5,7 @@ RoundImageView
 
 ### 显示效果
 
-![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/样式图片.png)
+![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
 ### 自定义属性介绍
 
@@ -90,3 +90,4 @@ RoundImageView
             app:displayType="normal" />
             
 
+[![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)

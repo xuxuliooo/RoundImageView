@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 version = "1.0"
-group='com.github.xuxuliooo'
+group='com.cb.imageview'
 
 def siteUrl = 'https://github.com/xuxuliooo/RoundImageView'
 def gitUrl = 'https://github.com/xuxuliooo/RoundImageView.git'
@@ -12,12 +13,10 @@ android {
 
     defaultConfig {
         minSdkVersion 15
+        //noinspection OldTargetApi
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -31,7 +30,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'com.android.support:appcompat-v7:26.1.0'
 }
 
@@ -55,7 +53,7 @@ install {
                     developer {
                         id 'xuxuliooo'        //填写的一些基本信息
                         name 'chenbo'
-                        email 'xuxuliooo@gmail.com'
+                        email 'chenbohc@163.com'
                     }
                 }
                 scm {
@@ -76,18 +74,18 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives sourcesJar
 }
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//bintray {
-//    user = properties.getProperty("BINTRAY_USER")
-//    key = properties.getProperty("BINTRAY_KEY")
-//    configurations = ['archives']
-//    pkg {
-//        repo = "maven"
-////        name = "roundimageview"    //发布到JCenter上的项目名字
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = ["Apache-2.0"]
-//        publish = true
-//    }
-//}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("BINTRAY_USER")
+    key = properties.getProperty("BINTRAY_KEY")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "RoundImageView"    //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}

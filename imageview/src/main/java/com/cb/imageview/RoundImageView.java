@@ -160,14 +160,12 @@ public class RoundImageView extends AppCompatImageView {
             } else {
                 displayType = DisplayType.CIRCLE;
             }
-
             typedArray.recycle();
         }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
         super.onMeasure(widthMeasureSpec,
                 displayType == DisplayType.CIRCLE ? widthMeasureSpec : heightMeasureSpec);
 

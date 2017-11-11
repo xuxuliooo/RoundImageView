@@ -1,7 +1,8 @@
-package cb.com.roundimageview;
+package com.cb.roundimageview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 
 public class MainActivity extends AppCompatActivity {
 
