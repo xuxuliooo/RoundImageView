@@ -1,20 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="cb.com.roundimageview.MainActivity">
 
-    <com.cb.imageview.RoundImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/img"
-        android:scaleType="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</android.support.constraint.ConstraintLayout>
+        <com.cb.imageview.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            app:borderWidth="1dp"
+            app:displayType="normal" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <com.cb.imageview.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            app:borderWidth="1dp"
+            app:displayType="round_rect"
+            app:radius="20dp" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.cb.imageview.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            app:borderWidth="1dp"
+            app:displayType="circle"
+            app:leftTopRadius="30dp"
+            app:rightBottomRadius="30dp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <com.cb.imageview.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            app:borderWidth="5dp"
+            app:displayType="round_rect"
+            app:leftTopRadius="30dp"
+            app:rightBottomRadius="30dp"
+            app:rightTopRadius="5dp" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.cb.imageview.RoundImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="center"
+                android:src="@drawable/img"
+                app:borderWidth="1dp"
+                app:displayType="round_rect"
+                app:leftBottomRadius="30dp"
+                app:rightTopRadius="30dp" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <com.cb.imageview.RoundImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="center"
+                android:src="@drawable/img"
+                app:borderWidth="1dp"
+                app:displayType="round_rect"
+                app:leftTopRadius="30dp"
+                app:rightBottomRadius="30dp" />
+        </LinearLayout>
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.cb.imageview.RoundImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="center"
+                android:src="@drawable/img"
+                app:borderWidth="1dp"
+                app:displayType="round_rect"
+                app:leftTopRadius="30dp"
+                app:rightBottomRadius="30dp" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <com.cb.imageview.RoundImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="center"
+                android:src="@drawable/img"
+                app:borderWidth="1dp"
+                app:displayType="round_rect"
+                app:leftBottomRadius="30dp"
+                app:rightTopRadius="30dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

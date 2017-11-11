@@ -7,6 +7,8 @@
         <attr name="borderColor" format="color" />
         <!-- 是否显示边框线 -->
         <attr name="displayBorder" format="boolean" />
+        <!-- 圆角半径，优先使用此属性 -->
+        <attr name="radius" format="dimension" />
         <!-- 左上角圆弧半径 -->
         <attr name="leftTopRadius" format="dimension" />
         <!-- 右上角圆弧半径 -->

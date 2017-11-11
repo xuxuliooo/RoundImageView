@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
@@ -32,7 +33,7 @@ public class RoundImageView extends AppCompatImageView {
     /**
      * The Border color.
      */
-    private int borderColor = Color.WHITE;
+    private int borderColor = Color.parseColor("#8A2BE2");
     /**
      * The Display border.
      */
@@ -58,10 +59,6 @@ public class RoundImageView extends AppCompatImageView {
      * The Display type.
      */
     private DisplayType displayType;
-    /**
-     * My path.
-     */
-    private Path mPath;
 
     /**
      * The enum Display type.
@@ -137,6 +134,7 @@ public class RoundImageView extends AppCompatImageView {
      * @param attrs the AttributeSet
      */
     private void init(Context ctx, AttributeSet attrs) {
+        setLayerType(LAYER_TYPE_HARDWARE, null);
         mPaint = new Paint();
 
         if (attrs != null) {
@@ -150,6 +148,10 @@ public class RoundImageView extends AppCompatImageView {
             rightTopRadius = typedArray.getDimension(R.styleable.RoundImageView_rightTopRadius, rightTopRadius);
             leftBottomRadius = typedArray.getDimension(R.styleable.RoundImageView_leftBottomRadius, leftBottomRadius);
             rightBottomRadius = typedArray.getDimension(R.styleable.RoundImageView_rightBottomRadius, rightBottomRadius);
+
+            float radius = typedArray.getDimension(R.styleable.RoundImageView_radius, 0);
+            if (radius > 0)
+                leftTopRadius = leftBottomRadius = rightTopRadius = rightBottomRadius = radius;
 
             int index = typedArray.getInt(R.styleable.RoundImageView_displayType, -1);
 
@@ -165,7 +167,26 @@ public class RoundImageView extends AppCompatImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        super.onMeasure(widthMeasureSpec,
+                displayType == DisplayType.CIRCLE ? widthMeasureSpec : heightMeasureSpec);
+
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        resetSize(Math.min(widthSize / 2, heightSize / 2));
+    }
+
+    /**
+     * Reset Size.
+     *
+     * @param size the size
+     */
+    private void resetSize(int size) {
+        leftTopRadius = Math.min(leftTopRadius, size);
+        rightTopRadius = Math.min(rightTopRadius, size);
+        leftBottomRadius = Math.min(leftBottomRadius, size);
+        rightBottomRadius = Math.min(rightBottomRadius, size);
+        borderWidth = Math.min(borderWidth, size / 2);
     }
 
     @SuppressLint("DrawAllocation")
@@ -175,6 +196,7 @@ public class RoundImageView extends AppCompatImageView {
         Canvas mCanvas = new Canvas(bm);
         super.onDraw(mCanvas);
 
+        mPaint.reset();
         mPaint.setAntiAlias(true);
         drawMyContent(mCanvas);
 
@@ -188,39 +210,16 @@ public class RoundImageView extends AppCompatImageView {
      * @param mCanvas my canvas
      */
     private void drawMyContent(Canvas mCanvas) {
-        switch (displayType) {
-            case CIRCLE:
-                drawCutCircle(mCanvas);
-                break;
-            case ROUND_RECT:
-                drawCutRoundRect(mCanvas);
-                break;
+
+        if (displayType != DisplayType.NORMAL) {
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+            Path path = createPath();
+            path.setFillType(Path.FillType.INVERSE_EVEN_ODD);
+            mCanvas.drawPath(path, mPaint);
+            mPaint.setXfermode(null);
         }
 
         if (displayBorder) drawBorders(mCanvas);
-    }
-
-    /**
-     * Draw cut circle.
-     *
-     * @param mCanvas my canvas
-     */
-    private void drawCutCircle(Canvas mCanvas) {
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        mPath = new Path();
-        mPath.addCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, Path.Direction.CW);
-        mPath.setFillType(Path.FillType.INVERSE_EVEN_ODD);
-        mCanvas.drawPath(mPath, mPaint);
-        mPaint.setXfermode(null);
-    }
-
-    /**
-     * Draw cut round rect.
-     *
-     * @param mCanvas my canvas
-     */
-    public void drawCutRoundRect(Canvas mCanvas) {
-
     }
 
     /**
@@ -229,6 +228,194 @@ public class RoundImageView extends AppCompatImageView {
      * @param mCanvas my canvas
      */
     private void drawBorders(Canvas mCanvas) {
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(borderColor);
+        mPaint.setStrokeWidth(borderWidth);
+        Path path = createPath();
+        mCanvas.drawPath(path, mPaint);
+    }
 
+    /**
+     * Create path.
+     *
+     * @return the path
+     */
+    private Path createPath() {
+        Path mPath = new Path();
+        float size = borderWidth / 2;
+        switch (displayType) {
+            case CIRCLE:
+                mPath.addCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - size, Path.Direction.CW);
+                break;
+            case ROUND_RECT:
+                RectF rectF = new RectF(0, 0, getWidth(), getHeight());
+                rectF.inset(size, size);
+                mPath.addRoundRect(rectF,
+                        new float[]{
+                                leftTopRadius, leftTopRadius,
+                                rightTopRadius, rightTopRadius,
+                                rightBottomRadius, rightBottomRadius,
+                                leftBottomRadius, leftBottomRadius},
+                        Path.Direction.CW);
+                break;
+            default:
+                RectF rect = new RectF(0, 0, getWidth(), getHeight());
+                rect.inset(size, size);
+                mPath.addRect(rect, Path.Direction.CW);
+                break;
+        }
+        return mPath;
+    }
+
+    /**
+     * Gets border width.
+     *
+     * @return the border width
+     */
+    public float getBorderWidth() {
+        return borderWidth;
+    }
+
+    /**
+     * Sets border width.
+     *
+     * @param borderWidth the border width
+     */
+    public void setBorderWidth(float borderWidth) {
+        this.borderWidth = borderWidth;
+        postInvalidate();
+    }
+
+    /**
+     * Gets border color.
+     *
+     * @return the border color
+     */
+    public int getBorderColor() {
+        return borderColor;
+    }
+
+    /**
+     * Sets border color.
+     *
+     * @param borderColor the border color
+     */
+    public void setBorderColor(int borderColor) {
+        this.borderColor = borderColor;
+        postInvalidate();
+    }
+
+    /**
+     * Is display border boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isDisplayBorder() {
+        return displayBorder;
+    }
+
+    /**
+     * Sets display border.
+     *
+     * @param displayBorder the display border
+     */
+    public void setDisplayBorder(boolean displayBorder) {
+        this.displayBorder = displayBorder;
+        postInvalidate();
+    }
+
+    /**
+     * Gets left top radius.
+     *
+     * @return the left top radius
+     */
+    public float getLeftTopRadius() {
+        return leftTopRadius;
+    }
+
+    /**
+     * Sets left top radius.
+     *
+     * @param leftTopRadius the left top radius
+     */
+    public void setLeftTopRadius(float leftTopRadius) {
+        this.leftTopRadius = leftTopRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Gets right top radius.
+     *
+     * @return the right top radius
+     */
+    public float getRightTopRadius() {
+        return rightTopRadius;
+    }
+
+    /**
+     * Sets right top radius.
+     *
+     * @param rightTopRadius the right top radius
+     */
+    public void setRightTopRadius(float rightTopRadius) {
+        this.rightTopRadius = rightTopRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Gets left bottom radius.
+     *
+     * @return the left bottom radius
+     */
+    public float getLeftBottomRadius() {
+        return leftBottomRadius;
+    }
+
+    /**
+     * Sets left bottom radius.
+     *
+     * @param leftBottomRadius the left bottom radius
+     */
+    public void setLeftBottomRadius(float leftBottomRadius) {
+        this.leftBottomRadius = leftBottomRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Gets right bottom radius.
+     *
+     * @return the right bottom radius
+     */
+    public float getRightBottomRadius() {
+        return rightBottomRadius;
+    }
+
+    /**
+     * Sets right bottom radius.
+     *
+     * @param rightBottomRadius the right bottom radius
+     */
+    public void setRightBottomRadius(float rightBottomRadius) {
+        this.rightBottomRadius = rightBottomRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Gets display type.
+     *
+     * @return the display type
+     */
+    public DisplayType getDisplayType() {
+        return displayType;
+    }
+
+    /**
+     * Sets display type.
+     *
+     * @param displayType the display type
+     */
+    public void setDisplayType(DisplayType displayType) {
+        this.displayType = displayType;
+        postInvalidate();
     }
 }
