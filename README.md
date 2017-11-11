@@ -59,7 +59,7 @@ RoundImageView
     ##### 2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0'"
 
         dependencies {
-                compile 'com.github.xuxuliooo:RoundImageView:1.0'
+            compile 'com.github.xuxuliooo:RoundImageView:1.0'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>
@@ -67,7 +67,7 @@ RoundImageView
     ##### 直接在app/build.gradle中添加"compile 'com.cb.imageview:RoundImageView:1.0'"
 
         dependencies {
-                compile 'com.cb.imageview:RoundImageView:1.0'
+            compile 'com.cb.imageview:RoundImageView:1.0'
         }
 
 
