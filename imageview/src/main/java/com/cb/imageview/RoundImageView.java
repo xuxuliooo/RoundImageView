@@ -173,7 +173,7 @@ public class RoundImageView extends AppCompatImageView {
 
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        resetSize(Math.min(widthSize / 2, heightSize / 2));
+        resetSize(Math.min(widthSize, heightSize) / 2);
     }
 
     /**
