@@ -18,7 +18,9 @@ import android.util.AttributeSet;
  * Created by Chub on 2017/11/10.
  * Email: chenbohc@163.com
  * QQ: 378277548
- * Description: 自定义ImageView，实现圆形和圆角矩形功能，并添加边框线显示。主要通过颜色渲染实现，并未对图片进行裁剪
+ * Description: Custom ImageView.
+ * Realize round and rounded rectangle function, Add border line display.
+ * Mainly through color rendering, The picture was not cropped
  */
 public class RoundImageView extends AppCompatImageView {
 
