@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.cb.viewtest"
+        applicationId "com.cbman.viewtest"
         minSdkVersion 15
         //noinspection OldTargetApi
         targetSdkVersion 26
