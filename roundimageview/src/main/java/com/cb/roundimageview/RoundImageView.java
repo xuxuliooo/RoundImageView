@@ -1,4 +1,4 @@
-package com.chenbo.roundimageview;
+package com.cb.roundimageview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

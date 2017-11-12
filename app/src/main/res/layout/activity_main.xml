@@ -14,7 +14,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.chenbo.roundimageview.RoundImageView
+        <com.cb.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="center"
@@ -26,7 +26,7 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <com.chenbo.roundimageview.RoundImageView
+        <com.cb.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="center"
@@ -47,7 +47,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.chenbo.roundimageview.RoundImageView
+        <com.cb.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:scaleType="center"
@@ -59,7 +59,7 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <com.chenbo.roundimageview.RoundImageView
+        <com.cb.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="center"

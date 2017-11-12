@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 version = "1.0"
-group='com.chenbo'
+group='com.cb'
 
 def siteUrl = 'https://github.com/xuxuliooo/RoundImageView'
 def gitUrl = 'https://github.com/xuxuliooo/RoundImageView.git'
