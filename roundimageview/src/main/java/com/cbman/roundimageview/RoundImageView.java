@@ -14,10 +14,8 @@ import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
-import com.cb.roundimageview.R;
-
 /**
- * Created by Chub on 2017/11/10.
+ * Created by ChenBo on 2017/11/10.
  * Email: chenbohc@163.com
  * QQ: 378277548
  * Description: Custom ImageView.
