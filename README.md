@@ -45,7 +45,7 @@ RoundImageView
 项目引用方式：
 ---
 
-* <b style="font-size: 18px">第一种方式：从jitpack存储库引入</b>    [![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg?style=flat-square)](https://jitpack.io/#xuxuliooo/RoundImageView)
+* <b style="font-size: 18px">第一种方式：从jitpack存储库引入</b>    [![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)
    
     <b style="font-size: 16px">1. 在项目的build.gradle中<font style="color: red">(非app/build.gradle)</font>添加"maven { url 'https://jitpack.io' }"</b>
 
@@ -62,7 +62,7 @@ RoundImageView
             compile 'com.github.xuxuliooo:RoundImageView:1.0'
         }
 
-* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?style=flat-square) ](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
+* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
     <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0'"</b>
 
