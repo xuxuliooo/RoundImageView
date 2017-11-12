@@ -64,10 +64,10 @@ RoundImageView
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cb.imageview:RoundImageView:1.0'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.chenbo.roundimageview:roundimageview:1.0'"</b>
 
         dependencies {
-            compile 'com.cb.imageview:RoundImageView:1.0'
+            compile 'com.chenbo.roundimageview:roundimageview:1.0'
         }
 
 
@@ -77,7 +77,7 @@ RoundImageView
 * <b>圆角矩形使用方式</b>
     * 自定义四角圆弧半径的大小
     
-            <com.cb.imageview.RoundImageView
+            <com.chenbo.roundimageview.RoundImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="center"
@@ -93,7 +93,7 @@ RoundImageView
                             
     * 四角圆弧半径相同时直接使用下面方式即可
     
-            <com.cb.imageview.RoundImageView
+            <com.chenbo.roundimageview.RoundImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="center"
@@ -104,7 +104,7 @@ RoundImageView
 
 * <b>圆形使用方式</b>
 
-        <com.cb.imageview.RoundImageView
+        <com.chenbo.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:scaleType="center"
@@ -114,7 +114,7 @@ RoundImageView
             
 * <b>矩形使用方式</b>
 
-        <com.cb.imageview.RoundImageView
+        <com.chenbo.roundimageview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="center"

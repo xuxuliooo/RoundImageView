@@ -1,4 +1,4 @@
-package com.cb.imageview;
+package com.chenbo.roundimageview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+
+import com.cb.roundimageview.R;
 
 /**
  * Created by Chub on 2017/11/10.
