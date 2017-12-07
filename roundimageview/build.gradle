@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0"
+version = "1.0.1"
 group='com.cbman'
 
 def siteUrl = 'https://github.com/xuxuliooo/RoundImageView'
@@ -15,8 +15,8 @@ android {
         minSdkVersion 15
         //noinspection OldTargetApi
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
     }
 
     buildTypes {
