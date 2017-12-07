@@ -59,6 +59,7 @@
     <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0'"</b>
 
         dependencies {
+            ...
             compile 'com.github.xuxuliooo:RoundImageView:1.0'
         }
 
