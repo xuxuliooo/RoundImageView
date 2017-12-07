@@ -59,8 +59,8 @@
     <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0'"</b>
 
         dependencies {
-            ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0'
+                ...
+                compile 'com.github.xuxuliooo:RoundImageView:1.0'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
@@ -68,7 +68,7 @@
     <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0'"</b>
 
         dependencies {
-            compile 'com.cbman:roundimageview:1.0'
+                compile 'com.cbman:roundimageview:1.0'
         }
 
 
