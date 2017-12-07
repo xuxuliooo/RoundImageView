@@ -192,16 +192,20 @@ public class RoundImageView extends AppCompatImageView {
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
-        Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas mCanvas = new Canvas(bm);
-        super.onDraw(mCanvas);
+        if (getDrawable() != null) {
+            Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas mCanvas = new Canvas(bm);
+            super.onDraw(mCanvas);
 
-        mPaint.reset();
-        mPaint.setAntiAlias(true);
-        drawMyContent(mCanvas);
+            mPaint.reset();
+            mPaint.setAntiAlias(true);
+            drawMyContent(mCanvas);
 
-        canvas.drawBitmap(bm, 0, 0, mPaint);
-        bm.recycle();
+            canvas.drawBitmap(bm, 0, 0, mPaint);
+            bm.recycle();
+        } else {
+            super.onDraw(canvas);
+        }
     }
 
     /**
@@ -397,6 +401,19 @@ public class RoundImageView extends AppCompatImageView {
      */
     public void setRightBottomRadius(float rightBottomRadius) {
         this.rightBottomRadius = rightBottomRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Sets radius.
+     *
+     * @param radius the radius
+     */
+    public void setRadius(float radius) {
+        leftTopRadius = radius;
+        leftBottomRadius = radius;
+        rightTopRadius = radius;
+        rightBottomRadius = radius;
         postInvalidate();
     }
 
