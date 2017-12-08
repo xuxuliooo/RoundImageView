@@ -8,6 +8,10 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
+修复bug
+--
+    ListView或RecyclerView的adapter中，宽度固定或使用"match_parent"时，高度使用"wrap_content"，设置边框线宽度和圆角无效问题
+        
 
 自定义属性介绍
 --
@@ -56,11 +60,11 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.2'"</b>
 
         dependencies {
             ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0'
+            compile 'com.github.xuxuliooo:RoundImageView:1.0.2'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
