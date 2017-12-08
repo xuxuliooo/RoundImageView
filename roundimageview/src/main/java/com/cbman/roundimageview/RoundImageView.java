@@ -39,7 +39,7 @@ public class RoundImageView extends AppCompatImageView {
     /**
      * The Display border.
      */
-    private boolean displayBorder = true;
+    private boolean displayBorder;
     /**
      * The Left top radius.
      */
@@ -160,7 +160,7 @@ public class RoundImageView extends AppCompatImageView {
             if (index >= 0) {
                 displayType = displayTypeArray[index];
             } else {
-                displayType = DisplayType.CIRCLE;
+                displayType = DisplayType.NORMAL;
             }
             typedArray.recycle();
         }
@@ -170,10 +170,24 @@ public class RoundImageView extends AppCompatImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,
                 displayType == DisplayType.CIRCLE ? widthMeasureSpec : heightMeasureSpec);
+    }
 
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        resetSize(Math.min(widthSize, heightSize) / 2);
+    @SuppressLint("DrawAllocation")
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (getDrawable() != null) {
+            resetSize(Math.min(getWidth(), getHeight()) / 2);
+            Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas mCanvas = new Canvas(bm);
+            super.onDraw(mCanvas);
+            mPaint.reset();
+            mPaint.setAntiAlias(true);
+            drawMyContent(mCanvas);
+            canvas.drawBitmap(bm, 0, 0, mPaint);
+            bm.recycle();
+        } else {
+            super.onDraw(canvas);
+        }
     }
 
     /**
@@ -187,25 +201,6 @@ public class RoundImageView extends AppCompatImageView {
         leftBottomRadius = Math.min(leftBottomRadius, size);
         rightBottomRadius = Math.min(rightBottomRadius, size);
         borderWidth = Math.min(borderWidth, size / 2);
-    }
-
-    @SuppressLint("DrawAllocation")
-    @Override
-    protected void onDraw(Canvas canvas) {
-        if (getDrawable() != null) {
-            Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas mCanvas = new Canvas(bm);
-            super.onDraw(mCanvas);
-
-            mPaint.reset();
-            mPaint.setAntiAlias(true);
-            drawMyContent(mCanvas);
-
-            canvas.drawBitmap(bm, 0, 0, mPaint);
-            bm.recycle();
-        } else {
-            super.onDraw(canvas);
-        }
     }
 
     /**

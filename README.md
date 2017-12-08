@@ -22,7 +22,7 @@
 
 * <b>displayBorder</b>
 
-        显示边框线，默认显示(true)，不显示则为(false)
+        显示边框线，默认不显示(false)，显示则为(true)
 
 * <b>radius</b>
 
@@ -35,7 +35,7 @@
 
 * <b>displayType</b>
 
-        显示类型，默认为圆形(circle)。
+        显示类型，默认为矩形(normal)。
         
     * <b>normal</b><font style="margin-left:15px">矩形显示</font>
     * <b>circle</b><font style="margin-left:15px">圆形显示</font>
@@ -65,11 +65,11 @@
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.2'"</b>
 
         dependencies {
             ...
-            compile 'com.cbman:roundimageview:1.0'
+            compile 'com.cbman:roundimageview:1.0.2'
         }
 
 

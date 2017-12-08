@@ -20,6 +20,7 @@
             android:scaleType="center"
             android:src="@drawable/img"
             app:borderWidth="1dp"
+            app:displayBorder="true"
             app:displayType="normal" />
 
         <android.support.v4.widget.Space
@@ -32,6 +33,7 @@
             android:scaleType="center"
             android:src="@drawable/img"
             app:borderWidth="1dp"
+            app:displayBorder="true"
             app:displayType="round_rect"
             app:radius="20dp" />
 
@@ -53,6 +55,7 @@
             android:scaleType="center"
             android:src="@drawable/img"
             app:borderWidth="1dp"
+            app:displayBorder="true"
             app:displayType="circle" />
 
         <android.support.v4.widget.Space

@@ -2,21 +2,20 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.1"
+version = "1.0.2"
 group='com.cbman'
 
 def siteUrl = 'https://github.com/xuxuliooo/RoundImageView'
 def gitUrl = 'https://github.com/xuxuliooo/RoundImageView.git'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 15
-        //noinspection OldTargetApi
-        targetSdkVersion 26
-        versionCode 2
-        versionName "1.0.1"
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.0.2"
     }
 
     buildTypes {
@@ -30,7 +29,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.0.1'
 }
 
 install {
