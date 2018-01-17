@@ -402,14 +402,26 @@ public class RoundImageView extends AppCompatImageView {
     /**
      * Sets radius.
      *
+     * @param leftTopRadius     the left top radius
+     * @param rightTopRadius    the right top radius
+     * @param leftBottomRadius  the left bottom radius
+     * @param rightBottomRadius the right bottom radius
+     */
+    public void setRadius(float leftTopRadius, float rightTopRadius, float leftBottomRadius, float rightBottomRadius) {
+        this.leftTopRadius = leftTopRadius;
+        this.rightTopRadius = rightTopRadius;
+        this.leftBottomRadius = leftBottomRadius;
+        this.rightBottomRadius = rightBottomRadius;
+        postInvalidate();
+    }
+
+    /**
+     * Sets radius.
+     *
      * @param radius the radius
      */
     public void setRadius(float radius) {
-        leftTopRadius = radius;
-        leftBottomRadius = radius;
-        rightTopRadius = radius;
-        rightBottomRadius = radius;
-        postInvalidate();
+        setRadius(radius, radius, radius, radius);
     }
 
     /**
