@@ -177,7 +177,7 @@ public class RoundImageView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         if (getDrawable() != null) {
             resetSize(Math.min(getWidth(), getHeight()) / 2);
-            Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_4444);
             Canvas mCanvas = new Canvas(bm);
             super.onDraw(mCanvas);
             mPaint.reset();
