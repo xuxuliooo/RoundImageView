@@ -8,6 +8,9 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
+1.0.4添加标签功能
+--
+    可以在图片上添加标签,如果标签文本超出标签绘制区域，将文本裁剪以"..."代替
 
 修复1.0bug
 --
@@ -47,7 +50,43 @@
     * <b>circle</b><font style="margin-left:15px">圆形显示</font>
     * <b>round_rect</b><font style="margin-left:15px">圆角矩形显示</font>
     
-    
+* <b>displayLable</b>
+
+        是否显示标签，默认不显示标签(false),显示为(true)
+
+* <b>lableBackground</b>
+
+        标签背景色，默认值为"#9FFF0000"
+        
+* <b>lableWidth</b>
+
+        标签宽度，单位(dp)
+        
+* <b>startMargin</b>
+
+        距离开始位置间距，单位(dp)
+
+* <b>text</b>
+
+        标签文本
+        
+* <b>textColor</b>
+
+        标签文本颜色
+        
+* <b>textSize</b>
+
+        标签文本文字大小
+        
+* <b>lableGravity</b>
+
+        标签显示位置(默认在右上角)
+        
+    * <b>leftTop</b><font style="margin-left:15px">左上角显示</font>        
+    * <b>rightTop</b><font style="margin-left:15px">右上角显示</font>        
+    * <b>leftBottom</b><font style="margin-left:15px">左下角显示</font>        
+    * <b>leftBottom</b><font style="margin-left:15px">右下角显示</font>        
+
 项目引用方式：
 ---
 
@@ -62,20 +101,20 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.3'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.4'"</b>
 
         dependencies {
             ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0.3'
+            compile 'com.github.xuxuliooo:RoundImageView:1.0.4'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.3'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.4'"</b>
 
         dependencies {
             ...
-            compile 'com.cbman:roundimageview:1.0.3'
+            compile 'com.cbman:roundimageview:1.0.4'
         }
 
 
@@ -127,6 +166,24 @@
             android:layout_height="100dp"
             android:scaleType="center"
             android:src="@drawable/img"
+            app:borderWidth="1dp"
+            app:displayType="normal" />
+            
+* <b>矩形带标签使用方式</b>
+
+        <com.cbman.roundimageview.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            app:displayLable="true"
+            app:lableGravity="rightTop"
+            app:lableWidth="20dp"
+            app:startMargin="60dp"
+            app:text="标签文本"
+            app:textColor="@android:color/white"
+            app:lableBackground="@color/colorAccent"
+            app:textSize="12sp"
             app:borderWidth="1dp"
             app:displayType="normal" />
             

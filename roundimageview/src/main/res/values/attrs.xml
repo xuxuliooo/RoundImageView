@@ -26,5 +26,26 @@
             <!-- Rounded Rectangle -->
             <enum name="round_rect" value="2" />
         </attr>
+        <!--Display lables-->
+        <attr name="displayLable" format="boolean" />
+        <!--The lable text-->
+        <attr name="text" />
+        <!--The lable background-->
+        <attr name="lableBackground" format="color" />
+        <!--The lable text color-->
+        <attr name="textColor" />
+        <!--The lable width-->
+        <attr name="lableWidth" format="dimension" />
+        <!--The lable text size-->
+        <attr name="textSize" />
+        <!--Distance start location margin-->
+        <attr name="startMargin" format="dimension" />
+        <!--Label display location-->
+        <attr name="lableGravity" format="enum">
+            <enum name="leftTop" value="0" />
+            <enum name="leftBottom" value="1" />
+            <enum name="rightTop" value="2" />
+            <enum name="rightBottom" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

@@ -75,6 +75,28 @@
             app:leftTopRadius="10dp"
             app:rightBottomRadius="20dp"
             app:rightTopRadius="15dp" />
+
     </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+
+    <com.cbman.roundimageview.RoundImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        app:borderWidth="1dp"
+        app:displayBorder="true"
+        app:displayLable="true"
+        app:displayType="normal"
+        app:lableBackground="@color/colorAccent"
+        app:lableGravity="rightTop"
+        app:lableWidth="20dp"
+        app:startMargin="30dp"
+        app:text="标签文本标签文本标签文本"
+        app:textColor="@android:color/white"
+        app:textSize="12sp" />
 
 </LinearLayout>

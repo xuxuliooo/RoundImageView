@@ -8,10 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 
 /**
@@ -24,10 +26,14 @@ import android.util.AttributeSet;
  */
 public class RoundImageView extends AppCompatImageView {
 
+    private static final int LEFT_TOP = 0;
+    private static final int LEFT_BOTTOM = 1;
+    private static final int RIGHT_TOP = 2;
+    private static final int RIGHT_BOTTOM = 3;
     /**
      * My paint.
      */
-    private Paint mPaint;
+    private Paint mPaint = null;
     /**
      * The Border width.
      */
@@ -61,6 +67,45 @@ public class RoundImageView extends AppCompatImageView {
      * The Display type.
      */
     private DisplayType displayType;
+
+    /**
+     * Whether to show the label
+     */
+    private boolean displayLable = false;
+
+    /**
+     * Lable text
+     */
+    private String lableText;
+    /**
+     * Lable text color
+     */
+    private int textColor = Color.WHITE;
+    /**
+     * Lable text size
+     */
+    private int textSize = 15;
+    /**
+     * Lable background
+     */
+    private int lableBackground = Color.parseColor("#9FFF0000");
+    /**
+     * Lable gravity
+     */
+    private int lableGravity = 2;
+    /**
+     * Lable width
+     */
+    private int lableWidth = 15;
+    /**
+     * Distance start location margin
+     */
+    private int startMargin = 20;
+
+    /**
+     * The text paint
+     */
+    private TextPaint mTextPaint = null;
 
     /**
      * The enum Display type.
@@ -138,31 +183,42 @@ public class RoundImageView extends AppCompatImageView {
     private void init(Context ctx, AttributeSet attrs) {
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mPaint = new Paint();
+        mTextPaint = new TextPaint();
 
         if (attrs != null) {
-            TypedArray typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
+            TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
 
-            borderWidth = typedArray.getDimension(R.styleable.RoundImageView_borderWidth, borderWidth);
-            borderColor = typedArray.getColor(R.styleable.RoundImageView_borderColor, borderColor);
-            displayBorder = typedArray.getBoolean(R.styleable.RoundImageView_displayBorder, displayBorder);
+            borderWidth = a.getDimension(R.styleable.RoundImageView_borderWidth, borderWidth);
+            borderColor = a.getColor(R.styleable.RoundImageView_borderColor, borderColor);
+            displayBorder = a.getBoolean(R.styleable.RoundImageView_displayBorder, displayBorder);
 
-            leftTopRadius = typedArray.getDimension(R.styleable.RoundImageView_leftTopRadius, leftTopRadius);
-            rightTopRadius = typedArray.getDimension(R.styleable.RoundImageView_rightTopRadius, rightTopRadius);
-            leftBottomRadius = typedArray.getDimension(R.styleable.RoundImageView_leftBottomRadius, leftBottomRadius);
-            rightBottomRadius = typedArray.getDimension(R.styleable.RoundImageView_rightBottomRadius, rightBottomRadius);
+            leftTopRadius = a.getDimension(R.styleable.RoundImageView_leftTopRadius, leftTopRadius);
+            rightTopRadius = a.getDimension(R.styleable.RoundImageView_rightTopRadius, rightTopRadius);
+            leftBottomRadius = a.getDimension(R.styleable.RoundImageView_leftBottomRadius, leftBottomRadius);
+            rightBottomRadius = a.getDimension(R.styleable.RoundImageView_rightBottomRadius, rightBottomRadius);
 
-            float radius = typedArray.getDimension(R.styleable.RoundImageView_radius, 0);
+            float radius = a.getDimension(R.styleable.RoundImageView_radius, 0);
             if (radius > 0)
                 leftTopRadius = leftBottomRadius = rightTopRadius = rightBottomRadius = radius;
 
-            int index = typedArray.getInt(R.styleable.RoundImageView_displayType, -1);
+            int index = a.getInt(R.styleable.RoundImageView_displayType, -1);
 
             if (index >= 0) {
                 displayType = displayTypeArray[index];
             } else {
                 displayType = DisplayType.NORMAL;
             }
-            typedArray.recycle();
+
+            displayLable = a.getBoolean(R.styleable.RoundImageView_displayLable, displayLable);
+            lableText = a.getString(R.styleable.RoundImageView_text);
+            lableBackground = a.getColor(R.styleable.RoundImageView_lableBackground, lableBackground);
+            textSize = a.getDimensionPixelSize(R.styleable.RoundImageView_textSize, textSize);
+            textColor = a.getColor(R.styleable.RoundImageView_textColor, textColor);
+            lableWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_lableWidth, lableWidth);
+            lableGravity = a.getInt(R.styleable.RoundImageView_lableGravity, lableGravity);
+            startMargin = a.getDimensionPixelSize(R.styleable.RoundImageView_startMargin, startMargin);
+
+            a.recycle();
         }
     }
 
@@ -201,6 +257,16 @@ public class RoundImageView extends AppCompatImageView {
         leftBottomRadius = Math.min(leftBottomRadius, size);
         rightBottomRadius = Math.min(rightBottomRadius, size);
         borderWidth = Math.min(borderWidth, size / 2);
+        lableWidth = Math.min(lableWidth, size / 2);
+        textSize = Math.min(textSize, lableWidth);
+        startMargin = Math.min(startMargin, (int) (size * 2 - getBevelLineLength()));
+    }
+
+    /**
+     * @return get Bevel line length
+     */
+    private float getBevelLineLength() {
+        return (float) Math.sqrt(Math.pow(lableWidth, 2) * 2);
     }
 
     /**
@@ -219,6 +285,84 @@ public class RoundImageView extends AppCompatImageView {
         }
 
         if (displayBorder) drawBorders(mCanvas);
+        if (displayLable) drawLables(mCanvas);
+    }
+
+    /**
+     * Draw Lables
+     *
+     * @param mCanvas My canvas
+     */
+    private void drawLables(Canvas mCanvas) {
+        Path path = new Path();
+        Path mTextPath = new Path();
+
+
+        switch (lableGravity) {
+            case LEFT_TOP:
+                path.moveTo(startMargin, 0);
+                path.rLineTo(getBevelLineLength(), 0);
+                path.lineTo(0, startMargin + getBevelLineLength());
+                path.rLineTo(0, -getBevelLineLength());
+                path.close();
+
+                mTextPath.moveTo(0, startMargin + getBevelLineLength() / 2f);
+                mTextPath.lineTo(startMargin + getBevelLineLength() / 2f, 0);
+                break;
+            case LEFT_BOTTOM:
+                path.moveTo(startMargin, getHeight());
+                path.rLineTo(getBevelLineLength(), 0);
+                path.lineTo(0, getHeight() - (startMargin + getBevelLineLength()));
+                path.rLineTo(0, getBevelLineLength());
+                path.close();
+
+                mTextPath.moveTo(0, getHeight() - (startMargin + getBevelLineLength() / 2f));
+                mTextPath.lineTo(startMargin + getBevelLineLength() / 2f, getHeight());
+                break;
+            case RIGHT_TOP:
+                path.moveTo(getWidth() - startMargin, 0);
+                path.rLineTo(-getBevelLineLength(), 0);
+                path.lineTo(getWidth(), startMargin + getBevelLineLength());
+                path.rLineTo(0, -getBevelLineLength());
+                path.close();
+
+                mTextPath.moveTo(getWidth() - (startMargin + getBevelLineLength() / 2f), 0);
+                mTextPath.lineTo(getWidth(), startMargin + getBevelLineLength() / 2f);
+                break;
+            case RIGHT_BOTTOM:
+                path.moveTo(getWidth() - startMargin, getHeight());
+                path.rLineTo(-getBevelLineLength(), 0);
+                path.lineTo(getWidth(), getHeight() - (startMargin + getBevelLineLength()));
+                path.rLineTo(0, getBevelLineLength());
+                path.close();
+
+                mTextPath.moveTo(getWidth() - (startMargin + getBevelLineLength() / 2f), getHeight());
+                mTextPath.lineTo(getWidth(), getHeight() - (startMargin + getBevelLineLength() / 2f));
+                break;
+        }
+        mTextPaint.reset();
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setStyle(Paint.Style.FILL);
+        mTextPaint.setColor(lableBackground);
+        mCanvas.drawPath(path, mTextPaint);
+
+        mTextPaint.setTextSize(textSize);
+        mTextPaint.setColor(textColor);
+        if (null == lableText) lableText = "";
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+
+        float textWidth = mTextPaint.measureText(lableText);
+        PathMeasure pathMeasure = new PathMeasure(mTextPath, false);
+        float pathLength = pathMeasure.getLength();
+        if (textWidth > pathLength) {//Text length is greater than the length of the drawing area, the text content is cropped. Replace with ellipsis
+            float sl = textWidth / lableText.length();
+            float le = textWidth - pathLength;
+            int num = (int) Math.floor(le / sl);
+            lableText = lableText.substring(0, lableText.length() - (num + 2)) + "...";
+        }
+        Paint.FontMetricsInt fm = mTextPaint.getFontMetricsInt();
+        float v = (fm.bottom - fm.top) / 2 - fm.bottom;
+        mCanvas.drawTextOnPath(lableText, mTextPath, 0, v, mTextPaint);
     }
 
     /**
@@ -441,5 +585,157 @@ public class RoundImageView extends AppCompatImageView {
     public void setDisplayType(DisplayType displayType) {
         this.displayType = displayType;
         postInvalidate();
+    }
+
+    /**
+     * Sets display lable.
+     *
+     * @param displayLable the display lable
+     */
+    public void setDisplayLable(boolean displayLable) {
+        this.displayLable = displayLable;
+        postInvalidate();
+    }
+
+    /**
+     * Sets lable text.
+     *
+     * @param lableText The lable text
+     */
+    public void setLableText(String lableText) {
+        this.lableText = lableText;
+        postInvalidate();
+    }
+
+    /**
+     * Sets text color.
+     *
+     * @param textColor the text color
+     */
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+        postInvalidate();
+    }
+
+    /**
+     * Sets text size.
+     *
+     * @param textSize the text size
+     */
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+        postInvalidate();
+    }
+
+    /**
+     * Sets lable background.
+     *
+     * @param lableBackground the lable background
+     */
+    public void setLableBackground(int lableBackground) {
+        this.lableBackground = lableBackground;
+        postInvalidate();
+    }
+
+    /**
+     * Sets lable gravity.
+     *
+     * @param lableGravity the lable gravity
+     */
+    public void setLableGravity(int lableGravity) {
+        this.lableGravity = lableGravity;
+        postInvalidate();
+    }
+
+    /**
+     * Sets lable width.
+     *
+     * @param lableWidth the lable width
+     */
+    public void setLableWidth(int lableWidth) {
+        this.lableWidth = lableWidth;
+        postInvalidate();
+    }
+
+    /**
+     * Sets start margin.
+     *
+     * @param startMargin the start margin
+     */
+    public void setStartMargin(int startMargin) {
+        this.startMargin = startMargin;
+        postInvalidate();
+    }
+
+    /**
+     * Is display lable boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isDisplayLable() {
+        return displayLable;
+    }
+
+    /**
+     * Gets lable text.
+     *
+     * @return the lable text
+     */
+    public String getLableText() {
+        return lableText == null ? "" : lableText;
+    }
+
+    /**
+     * Gets text color.
+     *
+     * @return the text color
+     */
+    public int getTextColor() {
+        return textColor;
+    }
+
+    /**
+     * Gets text size.
+     *
+     * @return the text size
+     */
+    public int getTextSize() {
+        return textSize;
+    }
+
+    /**
+     * Gets lable background.
+     *
+     * @return the lable background
+     */
+    public int getLableBackground() {
+        return lableBackground;
+    }
+
+    /**
+     * Gets lable gravity.
+     *
+     * @return the lable gravity
+     */
+    public int getLableGravity() {
+        return lableGravity;
+    }
+
+    /**
+     * Gets lable width.
+     *
+     * @return the lable width
+     */
+    public int getLableWidth() {
+        return lableWidth;
+    }
+
+    /**
+     * Gets start margin.
+     *
+     * @return the start margin
+     */
+    public int getStartMargin() {
+        return startMargin;
     }
 }
