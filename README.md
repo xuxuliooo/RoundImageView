@@ -6,7 +6,7 @@
 
 ### 显示效果
 
-![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png =100)
+![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
 1.0.4添加标签功能
 --
