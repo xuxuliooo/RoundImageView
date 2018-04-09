@@ -8,15 +8,9 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-1.0.4添加标签功能
+1.0.5添加标签功能
 --
     可以在图片上添加标签,如果标签文本超出标签绘制区域，将文本裁剪以"..."代替
-
-修复1.0bug
---
-    ListView或RecyclerView的adapter中，宽度固定或使用"match_parent"时，高度使用"wrap_content"，设置边框线宽度和圆角无效问题
-    添加setRadius(float leftTopRadius, float rightTopRadius, float leftBottomRadius, float rightBottomRadius)方法
-        
 
 自定义属性介绍
 --
