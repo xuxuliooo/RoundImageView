@@ -14,6 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 /**
@@ -106,6 +107,10 @@ public class RoundImageView extends AppCompatImageView {
      * The text paint
      */
     private TextPaint mTextPaint = null;
+    /**
+     * Text displayed on the label
+     */
+    private String text;
 
     /**
      * The enum Display type.
@@ -217,7 +222,7 @@ public class RoundImageView extends AppCompatImageView {
             lableWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_lableWidth, lableWidth);
             lableGravity = a.getInt(R.styleable.RoundImageView_lableGravity, lableGravity);
             startMargin = a.getDimensionPixelSize(R.styleable.RoundImageView_startMargin, startMargin);
-
+            text = lableText;
             a.recycle();
         }
     }
@@ -348,21 +353,21 @@ public class RoundImageView extends AppCompatImageView {
 
         mTextPaint.setTextSize(textSize);
         mTextPaint.setColor(textColor);
-        if (null == lableText) lableText = "";
+        if (null == text) text = "";
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
-        float textWidth = mTextPaint.measureText(lableText);
+        float textWidth = mTextPaint.measureText(text);
         PathMeasure pathMeasure = new PathMeasure(mTextPath, false);
         float pathLength = pathMeasure.getLength();
         if (textWidth > pathLength) {//Text length is greater than the length of the drawing area, the text content is cropped. Replace with ellipsis
-            float sl = textWidth / lableText.length();
+            float sl = textWidth / text.length();
             float le = textWidth - pathLength;
             int num = (int) Math.floor(le / sl);
-            lableText = lableText.substring(0, lableText.length() - (num + 2)) + "...";
+            text = text.substring(0, text.length() - (num + 2)) + "...";
         }
         Paint.FontMetricsInt fm = mTextPaint.getFontMetricsInt();
         float v = (fm.bottom - fm.top) / 2 - fm.bottom;
-        mCanvas.drawTextOnPath(lableText, mTextPath, 0, v, mTextPaint);
+        mCanvas.drawTextOnPath(text, mTextPath, 0, v, mTextPaint);
     }
 
     /**
@@ -425,8 +430,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param borderWidth the border width
      */
     public void setBorderWidth(float borderWidth) {
-        this.borderWidth = borderWidth;
-        postInvalidate();
+        if (this.borderWidth != borderWidth) {
+            this.borderWidth = borderWidth;
+            postInvalidate();
+        }
     }
 
     /**
@@ -444,8 +451,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param borderColor the border color
      */
     public void setBorderColor(int borderColor) {
-        this.borderColor = borderColor;
-        postInvalidate();
+        if (this.borderColor != borderColor) {
+            this.borderColor = borderColor;
+            postInvalidate();
+        }
     }
 
     /**
@@ -463,8 +472,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param displayBorder the display border
      */
     public void setDisplayBorder(boolean displayBorder) {
-        this.displayBorder = displayBorder;
-        postInvalidate();
+        if (this.displayBorder != displayBorder) {
+            this.displayBorder = displayBorder;
+            postInvalidate();
+        }
     }
 
     /**
@@ -482,8 +493,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param leftTopRadius the left top radius
      */
     public void setLeftTopRadius(float leftTopRadius) {
-        this.leftTopRadius = leftTopRadius;
-        postInvalidate();
+        if (this.leftTopRadius != leftTopRadius) {
+            this.leftTopRadius = leftTopRadius;
+            postInvalidate();
+        }
     }
 
     /**
@@ -501,8 +514,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param rightTopRadius the right top radius
      */
     public void setRightTopRadius(float rightTopRadius) {
-        this.rightTopRadius = rightTopRadius;
-        postInvalidate();
+        if (this.rightTopRadius != rightTopRadius) {
+            this.rightTopRadius = rightTopRadius;
+            postInvalidate();
+        }
     }
 
     /**
@@ -520,8 +535,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param leftBottomRadius the left bottom radius
      */
     public void setLeftBottomRadius(float leftBottomRadius) {
-        this.leftBottomRadius = leftBottomRadius;
-        postInvalidate();
+        if (this.leftBottomRadius != leftBottomRadius) {
+            this.leftBottomRadius = leftBottomRadius;
+            postInvalidate();
+        }
     }
 
     /**
@@ -539,8 +556,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param rightBottomRadius the right bottom radius
      */
     public void setRightBottomRadius(float rightBottomRadius) {
-        this.rightBottomRadius = rightBottomRadius;
-        postInvalidate();
+        if (this.rightBottomRadius != rightBottomRadius) {
+            this.rightBottomRadius = rightBottomRadius;
+            postInvalidate();
+        }
     }
 
     /**
@@ -552,6 +571,12 @@ public class RoundImageView extends AppCompatImageView {
      * @param rightBottomRadius the right bottom radius
      */
     public void setRadius(float leftTopRadius, float rightTopRadius, float leftBottomRadius, float rightBottomRadius) {
+        if (this.leftTopRadius == leftTopRadius
+                && this.rightTopRadius == rightTopRadius
+                && this.leftBottomRadius == leftBottomRadius
+                && this.rightBottomRadius == rightBottomRadius)
+            return;
+
         this.leftTopRadius = leftTopRadius;
         this.rightTopRadius = rightTopRadius;
         this.leftBottomRadius = leftBottomRadius;
@@ -583,8 +608,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param displayType the display type
      */
     public void setDisplayType(DisplayType displayType) {
-        this.displayType = displayType;
-        postInvalidate();
+        if (this.displayType != displayType) {
+            this.displayType = displayType;
+            postInvalidate();
+        }
     }
 
     /**
@@ -593,8 +620,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param displayLable the display lable
      */
     public void setDisplayLable(boolean displayLable) {
-        this.displayLable = displayLable;
-        postInvalidate();
+        if (this.displayLable != displayLable) {
+            this.displayLable = displayLable;
+            postInvalidate();
+        }
     }
 
     /**
@@ -603,8 +632,11 @@ public class RoundImageView extends AppCompatImageView {
      * @param lableText The lable text
      */
     public void setLableText(String lableText) {
-        this.lableText = lableText;
-        postInvalidate();
+        if (!TextUtils.equals(this.lableText, lableText)) {
+            this.lableText = lableText;
+            text = lableText;
+            postInvalidate();
+        }
     }
 
     /**
@@ -613,8 +645,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param textColor the text color
      */
     public void setTextColor(int textColor) {
-        this.textColor = textColor;
-        postInvalidate();
+        if (this.textColor != textColor) {
+            this.textColor = textColor;
+            postInvalidate();
+        }
     }
 
     /**
@@ -623,8 +657,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param textSize the text size
      */
     public void setTextSize(int textSize) {
-        this.textSize = textSize;
-        postInvalidate();
+        if (this.textSize != textSize) {
+            this.textSize = textSize;
+            postInvalidate();
+        }
     }
 
     /**
@@ -633,8 +669,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param lableBackground the lable background
      */
     public void setLableBackground(int lableBackground) {
-        this.lableBackground = lableBackground;
-        postInvalidate();
+        if (this.lableBackground != lableBackground) {
+            this.lableBackground = lableBackground;
+            postInvalidate();
+        }
     }
 
     /**
@@ -643,8 +681,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param lableGravity the lable gravity
      */
     public void setLableGravity(int lableGravity) {
-        this.lableGravity = lableGravity;
-        postInvalidate();
+        if (this.lableGravity != lableGravity) {
+            this.lableGravity = lableGravity;
+            postInvalidate();
+        }
     }
 
     /**
@@ -653,8 +693,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param lableWidth the lable width
      */
     public void setLableWidth(int lableWidth) {
-        this.lableWidth = lableWidth;
-        postInvalidate();
+        if (this.lableWidth != lableWidth) {
+            this.lableWidth = lableWidth;
+            postInvalidate();
+        }
     }
 
     /**
@@ -663,8 +705,10 @@ public class RoundImageView extends AppCompatImageView {
      * @param startMargin the start margin
      */
     public void setStartMargin(int startMargin) {
-        this.startMargin = startMargin;
-        postInvalidate();
+        if (this.startMargin != startMargin) {
+            this.startMargin = startMargin;
+            postInvalidate();
+        }
     }
 
     /**
@@ -682,7 +726,7 @@ public class RoundImageView extends AppCompatImageView {
      * @return the lable text
      */
     public String getLableText() {
-        return lableText == null ? "" : lableText;
+        return lableText;
     }
 
     /**
