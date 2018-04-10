@@ -12,10 +12,10 @@ import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.support.v7.widget.AppCompatImageView;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
 /**
  * Created by ChenBo on 2017/11/10.
@@ -25,7 +25,7 @@ import android.util.AttributeSet;
  * Realize round and rounded rectangle function, Add border line display.
  * Mainly through color rendering, The picture was not cropped
  */
-public class RoundImageView extends AppCompatImageView {
+public class RoundImageView extends ImageView {
 
     private static final int LEFT_TOP = 0;
     private static final int LEFT_BOTTOM = 1;
