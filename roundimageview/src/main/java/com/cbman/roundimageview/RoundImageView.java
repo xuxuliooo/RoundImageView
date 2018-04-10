@@ -12,6 +12,7 @@ import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -25,12 +26,17 @@ import android.widget.ImageView;
  * Realize round and rounded rectangle function, Add border line display.
  * Mainly through color rendering, The picture was not cropped
  */
+@SuppressWarnings("unused")
 public class RoundImageView extends ImageView {
 
     private static final int LEFT_TOP = 0;
     private static final int LEFT_BOTTOM = 1;
     private static final int RIGHT_TOP = 2;
     private static final int RIGHT_BOTTOM = 3;
+
+    private static final int SANS = 1;
+    private static final int SERIF = 2;
+    private static final int MONOSPACE = 3;
     /**
      * My paint.
      */
@@ -222,6 +228,12 @@ public class RoundImageView extends ImageView {
             lableWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_lableWidth, lableWidth);
             lableGravity = a.getInt(R.styleable.RoundImageView_lableGravity, lableGravity);
             startMargin = a.getDimensionPixelSize(R.styleable.RoundImageView_startMargin, startMargin);
+
+            final int typefaceIndex = a.getInt(R.styleable.RoundImageView_typeface, -1);
+            final int styleIndex = a.getInt(R.styleable.RoundImageView_textStyle, -1);
+            setTypefaceFromAttrs(typefaceIndex, styleIndex);
+
+
             text = lableText;
             a.recycle();
         }
@@ -432,7 +444,8 @@ public class RoundImageView extends ImageView {
     public void setBorderWidth(float borderWidth) {
         if (this.borderWidth != borderWidth) {
             this.borderWidth = borderWidth;
-            postInvalidate();
+            if (displayBorder)
+                postInvalidate();
         }
     }
 
@@ -453,7 +466,8 @@ public class RoundImageView extends ImageView {
     public void setBorderColor(int borderColor) {
         if (this.borderColor != borderColor) {
             this.borderColor = borderColor;
-            postInvalidate();
+            if (displayBorder)
+                postInvalidate();
         }
     }
 
@@ -495,7 +509,8 @@ public class RoundImageView extends ImageView {
     public void setLeftTopRadius(float leftTopRadius) {
         if (this.leftTopRadius != leftTopRadius) {
             this.leftTopRadius = leftTopRadius;
-            postInvalidate();
+            if (displayType != DisplayType.NORMAL)
+                postInvalidate();
         }
     }
 
@@ -516,7 +531,8 @@ public class RoundImageView extends ImageView {
     public void setRightTopRadius(float rightTopRadius) {
         if (this.rightTopRadius != rightTopRadius) {
             this.rightTopRadius = rightTopRadius;
-            postInvalidate();
+            if (displayType != DisplayType.NORMAL)
+                postInvalidate();
         }
     }
 
@@ -537,7 +553,8 @@ public class RoundImageView extends ImageView {
     public void setLeftBottomRadius(float leftBottomRadius) {
         if (this.leftBottomRadius != leftBottomRadius) {
             this.leftBottomRadius = leftBottomRadius;
-            postInvalidate();
+            if (displayType != DisplayType.NORMAL)
+                postInvalidate();
         }
     }
 
@@ -558,7 +575,8 @@ public class RoundImageView extends ImageView {
     public void setRightBottomRadius(float rightBottomRadius) {
         if (this.rightBottomRadius != rightBottomRadius) {
             this.rightBottomRadius = rightBottomRadius;
-            postInvalidate();
+            if (displayType != DisplayType.NORMAL)
+                postInvalidate();
         }
     }
 
@@ -581,7 +599,8 @@ public class RoundImageView extends ImageView {
         this.rightTopRadius = rightTopRadius;
         this.leftBottomRadius = leftBottomRadius;
         this.rightBottomRadius = rightBottomRadius;
-        postInvalidate();
+        if (displayType != DisplayType.NORMAL)
+            postInvalidate();
     }
 
     /**
@@ -610,7 +629,8 @@ public class RoundImageView extends ImageView {
     public void setDisplayType(DisplayType displayType) {
         if (this.displayType != displayType) {
             this.displayType = displayType;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -622,7 +642,8 @@ public class RoundImageView extends ImageView {
     public void setDisplayLable(boolean displayLable) {
         if (this.displayLable != displayLable) {
             this.displayLable = displayLable;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -635,7 +656,8 @@ public class RoundImageView extends ImageView {
         if (!TextUtils.equals(this.lableText, lableText)) {
             this.lableText = lableText;
             text = lableText;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -647,7 +669,8 @@ public class RoundImageView extends ImageView {
     public void setTextColor(int textColor) {
         if (this.textColor != textColor) {
             this.textColor = textColor;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -659,7 +682,8 @@ public class RoundImageView extends ImageView {
     public void setTextSize(int textSize) {
         if (this.textSize != textSize) {
             this.textSize = textSize;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -671,7 +695,8 @@ public class RoundImageView extends ImageView {
     public void setLableBackground(int lableBackground) {
         if (this.lableBackground != lableBackground) {
             this.lableBackground = lableBackground;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -683,7 +708,8 @@ public class RoundImageView extends ImageView {
     public void setLableGravity(int lableGravity) {
         if (this.lableGravity != lableGravity) {
             this.lableGravity = lableGravity;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -695,7 +721,8 @@ public class RoundImageView extends ImageView {
     public void setLableWidth(int lableWidth) {
         if (this.lableWidth != lableWidth) {
             this.lableWidth = lableWidth;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -707,7 +734,8 @@ public class RoundImageView extends ImageView {
     public void setStartMargin(int startMargin) {
         if (this.startMargin != startMargin) {
             this.startMargin = startMargin;
-            postInvalidate();
+            if (displayLable)
+                postInvalidate();
         }
     }
 
@@ -782,4 +810,79 @@ public class RoundImageView extends ImageView {
     public int getStartMargin() {
         return startMargin;
     }
+
+    private void setTypefaceFromAttrs(int typefaceIndex, int styleIndex) {
+        Typeface tf = null;
+        switch (typefaceIndex) {
+            case SANS:
+                tf = Typeface.SANS_SERIF;
+                break;
+
+            case SERIF:
+                tf = Typeface.SERIF;
+                break;
+
+            case MONOSPACE:
+                tf = Typeface.MONOSPACE;
+                break;
+        }
+
+        setTypeface(tf, styleIndex);
+    }
+
+    /**
+     * Sets the typeface and style in which the text should be displayed,
+     * and turns on the fake bold and italic bits in the Paint if the
+     * Typeface that you provided does not have all the bits in the
+     * style that you specified.
+     */
+    public void setTypeface(Typeface tf, int style) {
+        if (style > 0) {
+            if (tf == null) {
+                tf = Typeface.defaultFromStyle(style);
+            } else {
+                tf = Typeface.create(tf, style);
+            }
+
+            setTypeface(tf);
+            // now compute what (if any) algorithmic styling is needed
+            int typefaceStyle = tf != null ? tf.getStyle() : 0;
+            int need = style & ~typefaceStyle;
+            mTextPaint.setFakeBoldText((need & Typeface.BOLD) != 0);
+            mTextPaint.setTextSkewX((need & Typeface.ITALIC) != 0 ? -0.25f : 0);
+        } else {
+            mTextPaint.setFakeBoldText(false);
+            mTextPaint.setTextSkewX(0);
+            setTypeface(tf);
+        }
+    }
+
+    /**
+     * Sets the typeface and style in which the text should be displayed.
+     * Note that not all Typeface families actually have bold and italic
+     * variants, so you may need to use
+     * {@link #setTypeface(Typeface, int)} to get the appearance
+     * that you actually want.
+     *
+     * @see #getTypeface()
+     */
+    public void setTypeface(Typeface tf) {
+        if (mTextPaint.getTypeface() != tf) {
+            mTextPaint.setTypeface(tf);
+            if (displayLable)
+                postInvalidate();
+        }
+    }
+
+
+    /**
+     * Gets the current {@link Typeface} that is used to style the text.
+     *
+     * @return The current Typeface.
+     * @see #setTypeface(Typeface)
+     */
+    public Typeface getTypeface() {
+        return mTextPaint.getTypeface();
+    }
+
 }

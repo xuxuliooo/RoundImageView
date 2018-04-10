@@ -8,9 +8,11 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-1.0.6取消对appcompat-v7包的依赖
+1.0.7添加标签文字支持字体，可自定义字体(setTypeface)
 --
 
+1.0.6取消对appcompat-v7包的依赖
+--
 
 1.0.5添加标签功能
 --
@@ -85,8 +87,35 @@
     * <b>leftBottom</b><font style="margin-left:15px">左下角显示</font>        
     * <b>leftBottom</b><font style="margin-left:15px">右下角显示</font>        
 
+* <b>typeface</b>
+
+        标签文字字体
+        
+    * <b>normal</b><font style="margin-left:15px">默认字体类型</font>
+    * <b>sans</b><font style="margin-left:15px">默认的sans字体</font>
+    * <b>serif</b><font style="margin-left:15px">默认的serifs字体</font>
+    * <b>monospace</b><font style="margin-left:15px">默认的monospace字体</font>
+    
+    
+动态设置字体
+--
+
+* <b>从assets目录加载字体</b>
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "assets目录下的字体文件(注意带文件后缀, *.ttf)");
+        roundimageview.setTypeface(typeface);
+    
+* <b>从文件中加载字体</b>
+
+        Typeface typeface = Typeface.createFromFile(new File("字体文件路径(注意后缀 *.ttf)"));
+        或
+        Typeface typeface = Typeface.createFromFile("字体文件路径(注意后缀 *.ttf)");
+        roundimageview.setTypeface(typeface);
+
+* <b>更多查看Typeface类</b>
+
 项目引用方式：
----
+--
 
 * <b style="font-size: 18px">第一种方式：从jitpack存储库引入</b>    [![](https://jitpack.io/v/xuxuliooo/RoundImageView.svg)](https://jitpack.io/#xuxuliooo/RoundImageView)
    
@@ -99,20 +128,20 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.6'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.7'"</b>
 
         dependencies {
             ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0.6'
+            compile 'com.github.xuxuliooo:RoundImageView:1.0.7'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.6'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.7'"</b>
 
         dependencies {
             ...
-            compile 'com.cbman:roundimageview:1.0.6'
+            compile 'com.cbman:roundimageview:1.0.7'
         }
 
 

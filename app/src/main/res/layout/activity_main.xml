@@ -94,6 +94,7 @@
         app:lableBackground="@color/colorAccent"
         app:lableGravity="rightTop"
         app:lableWidth="20dp"
+        app:typeface="monospace"
         app:startMargin="30dp"
         app:text="标签文本标签文本标签文本"
         app:textColor="@android:color/white"

@@ -40,6 +40,10 @@
         <attr name="textSize" />
         <!--Distance start location margin-->
         <attr name="startMargin" format="dimension" />
+        <!--The lable typeface(normal, sans, serif, monospace)-->
+        <attr name="typeface" />
+        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <attr name="textStyle" />
         <!--Label display location-->
         <attr name="lableGravity" format="enum">
             <enum name="leftTop" value="0" />
