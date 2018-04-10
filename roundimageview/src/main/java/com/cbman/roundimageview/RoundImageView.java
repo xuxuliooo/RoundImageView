@@ -357,7 +357,6 @@ public class RoundImageView extends ImageView {
                 mTextPath.lineTo(getWidth(), getHeight() - (startMargin + getBevelLineLength() / 2f));
                 break;
         }
-        mTextPaint.reset();
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setColor(lableBackground);

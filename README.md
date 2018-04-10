@@ -96,6 +96,13 @@
     * <b>serif</b><font style="margin-left:15px">默认的serifs字体</font>
     * <b>monospace</b><font style="margin-left:15px">默认的monospace字体</font>
     
+* <b>textStyle</b>
+
+        字体样式
+        
+    * <b>normal</b><font style="margin-left:15px">正常字体</font>
+    * <b>bold</b><font style="margin-left:15px">粗体</font>
+    * <b>italic</b><font style="margin-left:15px">斜体</font>
     
 动态设置字体
 --
@@ -206,6 +213,8 @@
             app:displayLable="true"
             app:lableGravity="rightTop"
             app:lableWidth="20dp"
+            app:textStyle="italic"
+            app:typeface="normal"
             app:startMargin="60dp"
             app:text="标签文本"
             app:textColor="@android:color/white"

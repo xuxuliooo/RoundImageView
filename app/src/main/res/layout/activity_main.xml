@@ -1,90 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     android:gravity="center"
-    android:orientation="vertical"
     tools:context="com.cbman.viewtest.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <com.cbman.roundimageview.RoundImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="center"
-            android:src="@drawable/img"
-            app:borderWidth="1dp"
-            app:displayBorder="true"
-            app:displayType="normal" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <com.cbman.roundimageview.RoundImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="center"
-            android:src="@drawable/img"
-            app:borderWidth="1dp"
-            app:displayBorder="true"
-            app:displayType="round_rect"
-            app:radius="20dp" />
-
-    </LinearLayout>
-
-    <android.support.v4.widget.Space
-        android:layout_width="wrap_content"
-        android:layout_height="10dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <com.cbman.roundimageview.RoundImageView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:scaleType="center"
-            android:src="@drawable/img"
-            app:borderWidth="1dp"
-            app:displayBorder="true"
-            app:displayType="circle" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <com.cbman.roundimageview.RoundImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="center"
-            android:src="@drawable/img"
-            app:borderColor="#ff0000"
-            app:borderWidth="3dp"
-            app:displayBorder="true"
-            app:displayType="round_rect"
-            app:leftBottomRadius="30dp"
-            app:leftTopRadius="10dp"
-            app:rightBottomRadius="20dp"
-            app:rightTopRadius="15dp" />
-
-    </LinearLayout>
-
-    <android.support.v4.widget.Space
-        android:layout_width="wrap_content"
-        android:layout_height="10dp" />
-
     <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r1"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        app:borderWidth="1dp"
+        app:displayBorder="true"
+        app:displayType="normal" />
+
+
+    <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/r1"
+        android:layout_toRightOf="@id/r1"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        app:borderWidth="1dp"
+        app:displayBorder="true"
+        app:displayType="round_rect"
+        app:radius="20dp" />
+
+
+    <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r1"
+        android:layout_marginTop="15dp"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        app:borderWidth="1dp"
+        app:displayBorder="true"
+        app:displayType="circle" />
+
+    <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@id/r2"
+        android:layout_alignStart="@id/r2"
+        android:layout_below="@id/r2"
+        android:layout_marginTop="15dp"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        app:borderColor="#ff0000"
+        app:borderWidth="3dp"
+        app:displayBorder="true"
+        app:displayType="round_rect"
+        app:leftBottomRadius="30dp"
+        app:leftTopRadius="10dp"
+        app:rightBottomRadius="20dp"
+        app:rightTopRadius="15dp" />
+
+
+    <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/r3"
+        android:layout_marginTop="15dp"
         android:scaleType="center"
         android:src="@drawable/img"
         app:borderWidth="1dp"
@@ -94,10 +82,11 @@
         app:lableBackground="@color/colorAccent"
         app:lableGravity="rightTop"
         app:lableWidth="20dp"
-        app:typeface="monospace"
         app:startMargin="30dp"
         app:text="标签文本标签文本标签文本"
         app:textColor="@android:color/white"
-        app:textSize="12sp" />
+        app:textSize="12sp"
+        app:textStyle="bold"
+        app:typeface="normal" />
 
-</LinearLayout>
+</RelativeLayout>

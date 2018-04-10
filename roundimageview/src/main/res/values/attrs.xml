@@ -41,9 +41,18 @@
         <!--Distance start location margin-->
         <attr name="startMargin" format="dimension" />
         <!--The lable typeface(normal, sans, serif, monospace)-->
-        <attr name="typeface" />
+        <attr name="typeface">
+            <enum name="normal" value="0" />
+            <enum name="sans" value="1" />
+            <enum name="serif" value="2" />
+            <enum name="monospace" value="3" />
+        </attr>
         <!-- Style (bold, italic, bolditalic) for the text. -->
-        <attr name="textStyle" />
+        <attr name="textStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
         <!--Label display location-->
         <attr name="lableGravity" format="enum">
             <enum name="leftTop" value="0" />
