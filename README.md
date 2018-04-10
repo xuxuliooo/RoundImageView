@@ -8,6 +8,10 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
+1.0.6取消对appcompat-v7包的依赖
+--
+
+
 1.0.5添加标签功能
 --
     可以在图片上添加标签,如果标签文本超出标签绘制区域，将文本裁剪以"..."代替
@@ -95,20 +99,20 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.5'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.6'"</b>
 
         dependencies {
             ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0.5'
+            compile 'com.github.xuxuliooo:RoundImageView:1.0.6'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.5'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.6'"</b>
 
         dependencies {
             ...
-            compile 'com.cbman:roundimageview:1.0.5'
+            compile 'com.cbman:roundimageview:1.0.6'
         }
 
 
