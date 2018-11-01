@@ -8,6 +8,9 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
+1.0.8修改设置为圆形时，使用宽与高的最小值，如果最小值为0，则使用最大值
+--
+
 1.0.7添加标签文字支持字体，可自定义字体(setTypeface)
 --
 
@@ -135,20 +138,20 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"compile 'com.github.xuxuliooo:RoundImageView:1.0.7'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"implementation 'com.github.xuxuliooo:RoundImageView:1.0.8'"</b>
 
         dependencies {
             ...
-            compile 'com.github.xuxuliooo:RoundImageView:1.0.7'
+            implementation 'com.github.xuxuliooo:RoundImageView:1.0.8'
         }
 
 * <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg)](https://bintray.com/xuxuliooo/maven/RoundImageView/_latestVersion)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"compile 'com.cbman:roundimageview:1.0.7'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.0.8'"</b>
 
         dependencies {
             ...
-            compile 'com.cbman:roundimageview:1.0.7'
+            implementation 'com.cbman:roundimageview:1.0.8'
         }
 
 
