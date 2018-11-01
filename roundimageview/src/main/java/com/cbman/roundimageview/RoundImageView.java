@@ -192,7 +192,7 @@ public class RoundImageView extends ImageView {
 	 * @param attrs the AttributeSet
 	 */
 	private void init(Context ctx, AttributeSet attrs) {
-		setLayerType(LAYER_TYPE_HARDWARE, null);
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
 		mPaint = new Paint();
 		mTextPaint = new TextPaint();
 
