@@ -8,7 +8,7 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-修正关闭软件层硬件加速可能引起的黑色背景问题
+1.0.9修正关闭软件层硬件加速可能引起的黑色背景问题
 --
 1.0.8修改设置为圆形时，使用宽与高的最小值，如果最小值为0，则使用最大值
 --
