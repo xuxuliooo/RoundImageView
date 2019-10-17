@@ -26,6 +26,7 @@ import android.widget.ImageView;
  * Realize round and rounded rectangle function, Add border line display.
  * Mainly through color rendering, The picture was not cropped
  */
+@SuppressLint("AppCompatCustomView")
 @SuppressWarnings("unused")
 public class RoundImageView extends ImageView {
 
