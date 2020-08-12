@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RoundImageView">
+        <!-- Text to display. -->
+        <attr name="android:text" />
+        <!-- Size of text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp).
+             Supported values include the following:<p/>
+        <ul>
+            <li><b>px</b> Pixels</li>
+            <li><b>sp</b> Scaled pixels (scaled to relative pixel size on screen). See {@link android.util.DisplayMetrics} for more information.</li>
+            <li><b>pt</b> Points</li>
+            <li><b>dip</b> Device independent pixels. See {@link android.util.DisplayMetrics} for more information.</li>
+        </ul>
+            -->
+        <attr name="android:textSize" />
+        <!-- Color of text (usually same as colorForeground). -->
+        <attr name="android:textColor" />
         <!-- Border width -->
         <attr name="borderWidth" format="dimension" />
         <!-- Border color -->
         <attr name="borderColor" format="color" />
         <!-- Whether to show the border line -->
         <attr name="displayBorder" format="boolean" />
-        <!-- The radius of the round corner USES this property first -->
-        <attr name="radius" format="dimension" />
-        <!-- Upper left corner radius -->
-        <attr name="leftTopRadius" format="dimension" />
-        <!-- The radius of the arc in the upper right corner -->
-        <attr name="rightTopRadius" format="dimension" />
-        <!-- The radius of the arc in the lower left corner -->
-        <attr name="leftBottomRadius" format="dimension" />
-        <!-- The radius of the arc in the lower right corner -->
-        <attr name="rightBottomRadius" format="dimension" />
+        <!-- Defines the radius of the four corners. -->
+        <attr name="android:radius" />
+        <!-- Radius of the top left corner. -->
+        <attr name="android:topLeftRadius" />
+        <!-- Radius of the top right corner. -->
+        <attr name="android:topRightRadius" />
+        <!-- Radius of the bottom left corner. -->
+        <attr name="android:bottomLeftRadius" />
+        <!-- Radius of the bottom right corner. -->
+        <attr name="android:bottomRightRadius" />
         <!-- Display Type -->
         <attr name="displayType" format="enum">
             <!-- Rectangle -->
@@ -26,35 +40,20 @@
             <!-- Rounded Rectangle -->
             <enum name="round_rect" value="2" />
         </attr>
-        <!--Display lables-->
-        <attr name="displayLable" format="boolean" />
-        <!--The lable text-->
-        <attr name="text" />
-        <!--The lable background-->
-        <attr name="lableBackground" format="color" />
-        <!--The lable text color-->
-        <attr name="textColor" />
-        <!--The lable width-->
-        <attr name="lableWidth" format="dimension" />
-        <!--The lable text size-->
-        <attr name="textSize" />
+        <!--Display labels-->
+        <attr name="displayLabel" format="boolean" />
+        <!--The label background-->
+        <attr name="labelBackground" format="color" />
+        <!--The label width-->
+        <attr name="labelWidth" format="dimension" />
         <!--Distance start location margin-->
         <attr name="startMargin" format="dimension" />
-        <!--The lable typeface(normal, sans, serif, monospace)-->
-        <attr name="typeface">
-            <enum name="normal" value="0" />
-            <enum name="sans" value="1" />
-            <enum name="serif" value="2" />
-            <enum name="monospace" value="3" />
-        </attr>
-        <!-- Style (bold, italic, bolditalic) for the text. -->
-        <attr name="textStyle">
-            <flag name="normal" value="0" />
-            <flag name="bold" value="1" />
-            <flag name="italic" value="2" />
-        </attr>
+        <!-- Default text typeface. -->
+        <attr name="android:typeface" />
+        <!-- Default text typeface style. -->
+        <attr name="android:textStyle" />
         <!--Label display location-->
-        <attr name="lableGravity" format="enum">
+        <attr name="labelGravity" format="enum">
             <enum name="leftTop" value="0" />
             <enum name="leftBottom" value="1" />
             <enum name="rightTop" value="2" />

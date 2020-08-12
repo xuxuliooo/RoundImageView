@@ -19,6 +19,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
+ * Update Date : 2020/8/12.
  * Created by ChenBo on 2017/11/10.
  * Email: chenbohc@163.com
  * QQ: 378277548
@@ -26,7 +27,6 @@ import android.widget.ImageView;
  * Realize round and rounded rectangle function, Add border line display.
  * Mainly through color rendering, The picture was not cropped
  */
-@SuppressLint("AppCompatCustomView")
 @SuppressWarnings("unused")
 public class RoundImageView extends ImageView {
 
@@ -79,32 +79,32 @@ public class RoundImageView extends ImageView {
     /**
      * Whether to show the label
      */
-    private boolean displayLable = false;
+    private boolean displayLabel = false;
 
     /**
-     * Lable text
+     * Label text
      */
-    private String lableText;
+    private String labelText;
     /**
-     * Lable text color
+     * Label text color
      */
     private int textColor = Color.WHITE;
     /**
-     * Lable text size
+     * Label text size
      */
     private int textSize = 15;
     /**
-     * Lable background
+     * Label background
      */
-    private int lableBackground = Color.parseColor("#9FFF0000");
+    private int labelBackground = Color.parseColor("#9FFF0000");
     /**
-     * Lable gravity
+     * Label gravity
      */
-    private int lableGravity = 2;
+    private int labelGravity = 2;
     /**
-     * Lable width
+     * Label width
      */
-    private int lableWidth = 15;
+    private int labelWidth = 15;
     /**
      * Distance start location margin
      */
@@ -204,12 +204,12 @@ public class RoundImageView extends ImageView {
             borderColor = a.getColor(R.styleable.RoundImageView_borderColor, borderColor);
             displayBorder = a.getBoolean(R.styleable.RoundImageView_displayBorder, displayBorder);
 
-            leftTopRadius = a.getDimension(R.styleable.RoundImageView_leftTopRadius, leftTopRadius);
-            rightTopRadius = a.getDimension(R.styleable.RoundImageView_rightTopRadius, rightTopRadius);
-            leftBottomRadius = a.getDimension(R.styleable.RoundImageView_leftBottomRadius, leftBottomRadius);
-            rightBottomRadius = a.getDimension(R.styleable.RoundImageView_rightBottomRadius, rightBottomRadius);
+            leftTopRadius = a.getDimension(R.styleable.RoundImageView_android_topLeftRadius, leftTopRadius);
+            rightTopRadius = a.getDimension(R.styleable.RoundImageView_android_topRightRadius, rightTopRadius);
+            leftBottomRadius = a.getDimension(R.styleable.RoundImageView_android_bottomLeftRadius, leftBottomRadius);
+            rightBottomRadius = a.getDimension(R.styleable.RoundImageView_android_bottomRightRadius, rightBottomRadius);
 
-            float radius = a.getDimension(R.styleable.RoundImageView_radius, 0);
+            float radius = a.getDimension(R.styleable.RoundImageView_android_radius, 0);
             if (radius > 0)
                 leftTopRadius = leftBottomRadius = rightTopRadius = rightBottomRadius = radius;
 
@@ -221,20 +221,20 @@ public class RoundImageView extends ImageView {
                 displayType = DisplayType.NORMAL;
             }
 
-            displayLable = a.getBoolean(R.styleable.RoundImageView_displayLable, displayLable);
-            lableText = a.getString(R.styleable.RoundImageView_text);
-            lableBackground = a.getColor(R.styleable.RoundImageView_lableBackground, lableBackground);
-            textSize = a.getDimensionPixelSize(R.styleable.RoundImageView_textSize, textSize);
-            textColor = a.getColor(R.styleable.RoundImageView_textColor, textColor);
-            lableWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_lableWidth, lableWidth);
-            lableGravity = a.getInt(R.styleable.RoundImageView_lableGravity, lableGravity);
+            displayLabel = a.getBoolean(R.styleable.RoundImageView_displayLabel, displayLabel);
+            labelText = a.getString(R.styleable.RoundImageView_android_text);
+            labelBackground = a.getColor(R.styleable.RoundImageView_labelBackground, labelBackground);
+            textSize = a.getDimensionPixelSize(R.styleable.RoundImageView_android_textSize, textSize);
+            textColor = a.getColor(R.styleable.RoundImageView_android_textColor, textColor);
+            labelWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_labelWidth, labelWidth);
+            labelGravity = a.getInt(R.styleable.RoundImageView_labelGravity, labelGravity);
             startMargin = a.getDimensionPixelSize(R.styleable.RoundImageView_startMargin, startMargin);
 
-            final int typefaceIndex = a.getInt(R.styleable.RoundImageView_typeface, -1);
-            final int styleIndex = a.getInt(R.styleable.RoundImageView_textStyle, -1);
+            final int typefaceIndex = a.getInt(R.styleable.RoundImageView_android_typeface, -1);
+            final int styleIndex = a.getInt(R.styleable.RoundImageView_android_textStyle, -1);
             setTypefaceFromAttrs(typefaceIndex, styleIndex);
 
-            text = lableText;
+            text = labelText;
             a.recycle();
         }
     }
@@ -243,8 +243,6 @@ public class RoundImageView extends ImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
         if (displayType == DisplayType.CIRCLE) {
             int measureSpec;
@@ -292,8 +290,8 @@ public class RoundImageView extends ImageView {
         leftBottomRadius = Math.min(leftBottomRadius, size);
         rightBottomRadius = Math.min(rightBottomRadius, size);
         borderWidth = Math.min(borderWidth, size / 2);
-        lableWidth = (int) Math.min(lableWidth, size / 2);
-        textSize = Math.min(textSize, lableWidth);
+        labelWidth = (int) Math.min(labelWidth, size / 2);
+        textSize = Math.min(textSize, labelWidth);
         startMargin = Math.min(startMargin, (int) (size * 2 - getBevelLineLength()));
     }
 
@@ -301,7 +299,7 @@ public class RoundImageView extends ImageView {
      * @return get Bevel line length
      */
     private float getBevelLineLength() {
-        return (float) Math.sqrt(Math.pow(lableWidth, 2) * 2);
+        return (float) Math.sqrt(Math.pow(labelWidth, 2) * 2);
     }
 
     /**
@@ -321,20 +319,20 @@ public class RoundImageView extends ImageView {
         }
 
         if (displayBorder) drawBorders(mCanvas);
-        if (displayLable) drawLables(mCanvas);
+        if (displayLabel) drawLabels(mCanvas);
     }
 
     /**
-     * Draw Lables
+     * Draw Labels
      *
      * @param mCanvas My canvas
      */
-    private void drawLables(Canvas mCanvas) {
+    private void drawLabels(Canvas mCanvas) {
         Path path = new Path();
         Path mTextPath = new Path();
 
 
-        switch (lableGravity) {
+        switch (labelGravity) {
             case LEFT_TOP:
                 path.moveTo(startMargin, 0);
                 path.rLineTo(getBevelLineLength(), 0);
@@ -378,7 +376,7 @@ public class RoundImageView extends ImageView {
         }
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
-        mTextPaint.setColor(lableBackground);
+        mTextPaint.setColor(labelBackground);
         mCanvas.drawPath(path, mTextPaint);
 
         mTextPaint.setTextSize(textSize);
@@ -396,7 +394,7 @@ public class RoundImageView extends ImageView {
             text = text.substring(0, text.length() - (num + 2)) + "...";
         }
         Paint.FontMetricsInt fm = mTextPaint.getFontMetricsInt();
-        float v = (fm.bottom - fm.top) / 2 - fm.bottom;
+        float v = (fm.bottom - fm.top) / 2f - fm.bottom;
         mCanvas.drawTextOnPath(text, mTextPath, 0, v, mTextPaint);
     }
 
@@ -647,34 +645,34 @@ public class RoundImageView extends ImageView {
     public void setDisplayType(DisplayType displayType) {
         if (this.displayType != displayType) {
             this.displayType = displayType;
-            if (displayLable)
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Sets display lable.
+     * Sets display label.
      *
-     * @param displayLable the display lable
+     * @param displayLabel the display label
      */
-    public void setDisplayLable(boolean displayLable) {
-        if (this.displayLable != displayLable) {
-            this.displayLable = displayLable;
-            if (displayLable)
+    public void setDisplayLabel(boolean displayLabel) {
+        if (this.displayLabel != displayLabel) {
+            this.displayLabel = displayLabel;
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Sets lable text.
+     * Sets label text.
      *
-     * @param lableText The lable text
+     * @param labelText The label text
      */
-    public void setLableText(String lableText) {
-        if (!TextUtils.equals(this.lableText, lableText)) {
-            this.lableText = lableText;
-            text = lableText;
-            if (displayLable)
+    public void setLabelText(String labelText) {
+        if (!TextUtils.equals(this.labelText, labelText)) {
+            this.labelText = labelText;
+            text = labelText;
+            if (displayLabel)
                 postInvalidate();
         }
     }
@@ -687,7 +685,7 @@ public class RoundImageView extends ImageView {
     public void setTextColor(int textColor) {
         if (this.textColor != textColor) {
             this.textColor = textColor;
-            if (displayLable)
+            if (displayLabel)
                 postInvalidate();
         }
     }
@@ -700,46 +698,46 @@ public class RoundImageView extends ImageView {
     public void setTextSize(int textSize) {
         if (this.textSize != textSize) {
             this.textSize = textSize;
-            if (displayLable)
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Sets lable background.
+     * Sets label background.
      *
-     * @param lableBackground the lable background
+     * @param labelBackground the label background
      */
-    public void setLableBackground(int lableBackground) {
-        if (this.lableBackground != lableBackground) {
-            this.lableBackground = lableBackground;
-            if (displayLable)
+    public void setLabelBackground(int labelBackground) {
+        if (this.labelBackground != labelBackground) {
+            this.labelBackground = labelBackground;
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Sets lable gravity.
+     * Sets label gravity.
      *
-     * @param lableGravity the lable gravity
+     * @param labelGravity the label gravity
      */
-    public void setLableGravity(int lableGravity) {
-        if (this.lableGravity != lableGravity) {
-            this.lableGravity = lableGravity;
-            if (displayLable)
+    public void setLabelGravity(int labelGravity) {
+        if (this.labelGravity != labelGravity) {
+            this.labelGravity = labelGravity;
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Sets lable width.
+     * Sets label width.
      *
-     * @param lableWidth the lable width
+     * @param labelWidth the label width
      */
-    public void setLableWidth(int lableWidth) {
-        if (this.lableWidth != lableWidth) {
-            this.lableWidth = lableWidth;
-            if (displayLable)
+    public void setLabelWidth(int labelWidth) {
+        if (this.labelWidth != labelWidth) {
+            this.labelWidth = labelWidth;
+            if (displayLabel)
                 postInvalidate();
         }
     }
@@ -752,27 +750,27 @@ public class RoundImageView extends ImageView {
     public void setStartMargin(int startMargin) {
         if (this.startMargin != startMargin) {
             this.startMargin = startMargin;
-            if (displayLable)
+            if (displayLabel)
                 postInvalidate();
         }
     }
 
     /**
-     * Is display lable boolean.
+     * Is display label boolean.
      *
      * @return the boolean
      */
-    public boolean isDisplayLable() {
-        return displayLable;
+    public boolean isDisplayLabel() {
+        return displayLabel;
     }
 
     /**
-     * Gets lable text.
+     * Gets label text.
      *
-     * @return the lable text
+     * @return the label text
      */
-    public String getLableText() {
-        return lableText;
+    public String getLabelText() {
+        return labelText;
     }
 
     /**
@@ -794,30 +792,30 @@ public class RoundImageView extends ImageView {
     }
 
     /**
-     * Gets lable background.
+     * Gets label background.
      *
-     * @return the lable background
+     * @return the label background
      */
-    public int getLableBackground() {
-        return lableBackground;
+    public int getLabelBackground() {
+        return labelBackground;
     }
 
     /**
-     * Gets lable gravity.
+     * Gets label gravity.
      *
-     * @return the lable gravity
+     * @return the label gravity
      */
-    public int getLableGravity() {
-        return lableGravity;
+    public int getLabelGravity() {
+        return labelGravity;
     }
 
     /**
-     * Gets lable width.
+     * Gets label width.
      *
-     * @return the lable width
+     * @return the label width
      */
-    public int getLableWidth() {
-        return lableWidth;
+    public int getLabelWidth() {
+        return labelWidth;
     }
 
     /**
@@ -887,7 +885,7 @@ public class RoundImageView extends ImageView {
     public void setTypeface(Typeface tf) {
         if (mTextPaint.getTypeface() != tf) {
             mTextPaint.setTypeface(tf);
-            if (displayLable)
+            if (displayLabel)
                 postInvalidate();
         }
     }

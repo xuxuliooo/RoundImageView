@@ -8,7 +8,7 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-1.0.9修正关闭软件层硬件加速可能引起的黑色背景问题
+1.1.0修复自定义属性冲突问题，改为引用系统定义的属性
 --
 
 自定义属性介绍
@@ -29,9 +29,9 @@
 * <b>radius</b>
 
         圆角矩形圆弧半径，默认为"0"，如果设置大于"0",
-        则设置(leftTopRadius、rightTopRadius、leftBottomRadius、rightBottomRadius)属性会失效
+        则设置(topLeftRadius、topRightRadius、bottomLeftRadius、bottomRightRadius)属性会失效
 
-* <b>leftTopRadius(左上角圆弧半径) <br> leftBottomRadius(左下角圆弧半径) <br> rightTopRadius(右上角圆弧半径) <br> rightBottomRadius(右下角圆弧半径)</b>
+* <b>topLeftRadius(左上角圆弧半径) <br> bottomLeftRadius(左下角圆弧半径) <br> topRightRadius(右上角圆弧半径) <br> bottomRightRadius(右下角圆弧半径)</b>
 
         矩形四角的圆弧半径，默认为"0"，如果设置"radius"属性时，则此属性值会取"radius"设置的值
 
@@ -43,15 +43,15 @@
     * <b>circle</b><font style="margin-left:15px">圆形显示</font>
     * <b>round_rect</b><font style="margin-left:15px">圆角矩形显示</font>
     
-* <b>displayLable</b>
+* <b>displayLabel</b>
 
         是否显示标签，默认不显示标签(false),显示为(true)
 
-* <b>lableBackground</b>
+* <b>labelBackground</b>
 
         标签背景色，默认值为"#9FFF0000"
         
-* <b>lableWidth</b>
+* <b>labelWidth</b>
 
         标签宽度，单位(dp)
         
@@ -71,7 +71,7 @@
 
         标签文本文字大小
         
-* <b>lableGravity</b>
+* <b>labelGravity</b>
 
         标签显示位置(默认在右上角)
         
@@ -103,14 +103,14 @@
 * <b>从assets目录加载字体</b>
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "assets目录下的字体文件(注意带文件后缀, *.ttf)");
-        roundimageview.setTypeface(typeface);
+        roundImageView.setTypeface(typeface);
     
 * <b>从文件中加载字体</b>
 
         Typeface typeface = Typeface.createFromFile(new File("字体文件路径(注意后缀 *.ttf)"));
         或
         Typeface typeface = Typeface.createFromFile("字体文件路径(注意后缀 *.ttf)");
-        roundimageview.setTypeface(typeface);
+        roundImageView.setTypeface(typeface);
 
 * <b>更多查看Typeface类</b>
 
@@ -128,20 +128,20 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"implementation 'com.github.xuxuliooo:RoundImageView:1.0.9'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"implementation 'com.github.xuxuliooo:RoundImageView:1.1.0'"</b>
 
         dependencies {
             ...
-            implementation 'com.github.xuxuliooo:RoundImageView:1.0.9'
+            implementation 'com.github.xuxuliooo:RoundImageView:1.1.0'
         }
 
-* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.0.9) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.0.9/link)
+* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.1.0) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.1.0/link)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.0.9'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.1.0'"</b>
 
         dependencies {
             ...
-            implementation 'com.cbman:roundimageview:1.0.9'
+            implementation 'com.cbman:roundimageview:1.1.0'
         }
 
 
@@ -150,20 +150,20 @@
 
 * <b>圆角矩形使用方式</b>
     * 自定义四角圆弧半径的大小
-    
+
             <com.cbman.roundimageview.RoundImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="center"
                 android:src="@drawable/img"
+                android:bottomLeftRadius="30dp"
+                android:topLeftRadius="10dp"
+                android:bottomRightRadius="20dp"
+                android:topRightRadius="15dp"
                 app:borderColor="#ff0000"
                 app:borderWidth="3dp"
                 app:displayBorder="true"
-                app:displayType="round_rect"
-                app:leftBottomRadius="30dp"
-                app:leftTopRadius="10dp"
-                app:rightBottomRadius="20dp"
-                app:rightTopRadius="15dp" />
+                app:displayType="round_rect" />
                             
     * 四角圆弧半径相同时直接使用下面方式即可
     
@@ -172,9 +172,9 @@
                 android:layout_height="100dp"
                 android:scaleType="center"
                 android:src="@drawable/img"
+                android:radius="20dp"
                 app:borderWidth="1dp"
-                app:displayType="round_rect"
-                app:radius="20dp" />
+                app:displayType="round_rect" />
 
 * <b>圆形使用方式</b>
 
@@ -203,16 +203,16 @@
             android:layout_height="100dp"
             android:scaleType="center"
             android:src="@drawable/img"
-            app:displayLable="true"
-            app:lableGravity="rightTop"
-            app:lableWidth="20dp"
-            app:textStyle="italic"
-            app:typeface="normal"
+            android:text="标签文本"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:typeface="normal"
+            android:textStyle="italic"
+            app:displayLabel="true"
+            app:labelGravity="rightTop"
+            app:labelWidth="20dp"
             app:startMargin="60dp"
-            app:text="标签文本"
-            app:textColor="@android:color/white"
-            app:lableBackground="@color/colorAccent"
-            app:textSize="12sp"
+            app:labelBackground="@color/colorAccent"
             app:borderWidth="1dp"
             app:displayType="normal" />
             
