@@ -18,7 +18,6 @@
         app:displayBorder="true"
         app:displayType="normal" />
 
-
     <com.cbman.roundimageview.RoundImageView
         android:id="@+id/r2"
         android:layout_width="100dp"
@@ -33,7 +32,6 @@
         app:borderWidth="1dp"
         app:displayBorder="true"
         app:displayType="round_rect" />
-
 
     <com.cbman.roundimageview.RoundImageView
         android:id="@+id/r3"
@@ -66,7 +64,6 @@
         app:displayBorder="true"
         app:displayType="round_rect" />
 
-
     <com.cbman.roundimageview.RoundImageView
         android:id="@+id/r5"
         android:layout_width="100dp"
@@ -88,5 +85,24 @@
         app:labelGravity="rightTop"
         app:labelWidth="20dp"
         app:startMargin="30dp" />
+
+    <com.cbman.roundimageview.RoundImageView
+        android:id="@+id/r6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/r4"
+        android:layout_alignStart="@id/r4"
+        android:layout_alignLeft="@id/r4"
+        android:layout_marginTop="15dp"
+        android:endColor="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:scaleType="center"
+        android:src="@drawable/img"
+        android:startColor="@color/colorAccent"
+        android:type="linear"
+        app:borderWidth="5dp"
+        app:displayBorder="true"
+        app:displayType="circle"
+        app:gradientContent="border" />
 
 </RelativeLayout>

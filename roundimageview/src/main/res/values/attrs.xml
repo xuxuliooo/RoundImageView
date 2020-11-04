@@ -32,7 +32,7 @@
         <!-- Radius of the bottom right corner. -->
         <attr name="android:bottomRightRadius" />
         <!-- Display Type -->
-        <attr name="displayType" format="enum">
+        <attr name="displayType">
             <!-- Rectangle -->
             <enum name="normal" value="0" />
             <!-- circle -->
@@ -40,24 +40,51 @@
             <!-- Rounded Rectangle -->
             <enum name="round_rect" value="2" />
         </attr>
-        <!--Display labels-->
+        <!-- Display labels-->
         <attr name="displayLabel" format="boolean" />
-        <!--The label background-->
+        <!-- The label background-->
         <attr name="labelBackground" format="color" />
-        <!--The label width-->
+        <!-- The label width-->
         <attr name="labelWidth" format="dimension" />
-        <!--Distance start location margin-->
+        <!-- Distance start location margin-->
         <attr name="startMargin" format="dimension" />
         <!-- Default text typeface. -->
         <attr name="android:typeface" />
         <!-- Default text typeface style. -->
         <attr name="android:textStyle" />
-        <!--Label display location-->
-        <attr name="labelGravity" format="enum">
+        <!-- Label display location-->
+        <attr name="labelGravity">
+            <!-- Align top left-->
             <enum name="leftTop" value="0" />
+            <!-- Align bottom left-->
             <enum name="leftBottom" value="1" />
+            <!-- Align top right-->
             <enum name="rightTop" value="2" />
+            <!-- Align bottom right-->
             <enum name="rightBottom" value="3" />
         </attr>
+        <!-- Use gradient content-->
+        <attr name="gradientContent">
+            <enum name="none" value="0" />
+            <!-- Border gradient-->
+            <enum name="border" value="1" />
+            <!-- Label gradient-->
+            <enum name="label" value="2" />
+            <!-- Label background gradient-->
+            <enum name="labelBackground" value="3" />
+            <!-- Use gradient colors for borders, labels and label backgrounds-->
+            <enum name="all" value="4" />
+        </attr>
+        <!-- Type of gradient. The default type is linear. -->
+        <attr name="android:type" />
+        <!-- Start color of the gradient. -->
+        <attr name="android:startColor" />
+        <!-- Optional center color. For linear gradients, use centerX or centerY to place the center
+             color. -->
+        <attr name="android:centerColor" />
+        <!-- End color of the gradient. -->
+        <attr name="android:endColor" />
+        <!-- Standard orientation constant. -->
+        <attr name="android:orientation" />
     </declare-styleable>
 </resources>

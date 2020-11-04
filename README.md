@@ -8,11 +8,43 @@
 
 ![](https://github.com/xuxuliooo/RoundImageView/raw/master/image/sample.png)
 
-1.1.0修复自定义属性冲突问题，改为引用系统定义的属性
+1.1.1 添加渐变色属性，修改颜色使用，可根据View的状态改变使用指定状态的颜色。
 --
 
 自定义属性介绍
 --
+* <b>gradientContent</b>
+
+        渐变色显示内容
+
+    * <b>none</b><font style="margin-left:15px">不使用渐变色</font>
+    * <b>border</b><font style="margin-left:15px">边框使用渐变色</font>
+    * <b>label</b><font style="margin-left:15px">标签文字使用渐变色</font>
+    * <b>labelBackground</b><font style="margin-left:15px">标签背景使用渐变色</font>
+    * <b>all</b><font style="margin-left:15px">边框及标签背景使用渐变色</font>
+
+* <b>type</b>
+
+        渐变色类型
+
+    * <b>linear</b><font style="margin-left:15px">线性渐变色</font>
+    * <b>radial</b><font style="margin-left:15px">径向渐变色</font>
+    * <b>sweep</b><font style="margin-left:15px">扫描渐变</font>
+* <b>startColor</b>
+
+        渐变色起始颜色
+
+* <b>centerColor</b>
+
+        渐变色中间颜色
+
+* <b>endColor</b>
+
+        渐变色结束颜色
+
+* <b>orientation</b>
+
+        使用线性渐变时，渐变方向，水平方向(horizontal)或垂直方向(vertical)
 
 * <b>borderWidth</b>
 
@@ -128,16 +160,16 @@
             }
         }
    
-    <b style="font-size: 16px">2. 在app/build.gradle中添加"implementation 'com.github.xuxuliooo:RoundImageView:1.1.0'"</b>
+    <b style="font-size: 16px">2. 在app/build.gradle中添加"implementation 'com.github.xuxuliooo:RoundImageView:1.1.1'"</b>
 
         dependencies {
             ...
             implementation 'com.github.xuxuliooo:RoundImageView:1.1.0'
         }
 
-* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.1.0) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.1.0/link)
+* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.1.1) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.1.1/link)
    
-    <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.1.0'"</b>
+    <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.1.1'"</b>
 
         dependencies {
             ...
@@ -216,5 +248,25 @@
             app:borderWidth="1dp"
             app:displayType="normal" />
             
+* <b>边框渐变色使用方式</b>
+
+        <com.cbman.roundimageview.RoundImageView
+            android:id="@+id/r6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/r4"
+            android:layout_alignStart="@id/r4"
+            android:layout_alignLeft="@id/r4"
+            android:layout_marginTop="15dp"
+            android:endColor="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            android:scaleType="center"
+            android:src="@drawable/img"
+            android:startColor="@color/colorAccent"
+            android:type="linear"
+            app:borderWidth="5dp"
+            app:displayBorder="true"
+            app:displayType="circle"
+            app:gradientContent="border" />
 
 <a href='https://bintray.com/xuxuliooo/maven/RoundImageView?source=watch' alt='Get automatic notifications about new "RoundImageView" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>

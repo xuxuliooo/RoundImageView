@@ -2,21 +2,28 @@ package com.cbman.roundimageview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RadialGradient;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
+import android.os.Looper;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * Update Date : 2020/8/12.
@@ -38,6 +45,40 @@ public class RoundImageView extends ImageView {
     private static final int SANS = 1;
     private static final int SERIF = 2;
     private static final int MONOSPACE = 3;
+
+    /**
+     * Linear gradient extending across the center point..
+     */
+    private static final int GRADIENT_LINEAR_TYPE = 0;
+    /**
+     * Radial gradient extending from the center point outward.
+     */
+    private static final int GRADIENT_RADIAL_TYPE = 1;
+    /**
+     * Sweep (or angular) gradient sweeping counter-clockwise around the center point.
+     */
+    private static final int GRADIENT_SWEEP_TYPE = 2;
+
+    /**
+     * Constant indicating that no gradient has been set.
+     */
+    public static final int GRADIENT_NONE = 0;
+    /**
+     * Use gradient colors for borders.
+     */
+    public static final int GRADIENT_BORDER = 1;
+    /**
+     * Use gradients for label text.
+     */
+    public static final int GRADIENT_LABEL = 2;
+    /**
+     * Use gradients for label background.
+     */
+    public static final int GRADIENT_LABEL_BACKGROUND = 3;
+    /**
+     * Use gradient colors for borders, labels and label backgrounds
+     */
+    public static final int GRADIENT_ALL = 4;
     /**
      * My paint.
      */
@@ -46,6 +87,18 @@ public class RoundImageView extends ImageView {
      * The Border width.
      */
     private float borderWidth = 2;
+    /**
+     * The border color state list.
+     */
+    private ColorStateList mBorderColorStateList;
+    /**
+     * The text color state list.
+     */
+    private ColorStateList mTextColorStateList;
+    /**
+     * The label background color state list.
+     */
+    private ColorStateList mLabelBackColorStateList;
     /**
      * The Border color.
      */
@@ -118,6 +171,57 @@ public class RoundImageView extends ImageView {
      * Text displayed on the label
      */
     private String text;
+    /**
+     * The gradient color start state color list.
+     */
+    private ColorStateList mStartColor;
+    /**
+     * The gradient color center state color list.
+     */
+    private ColorStateList mCenterColor;
+    /**
+     * The gradient color end state color list.
+     */
+    private ColorStateList mEndColor;
+    /**
+     * The gradient color current start color.
+     */
+    private int mCurrentStartColor;
+    /**
+     * The gradient color current center color.
+     */
+    private int mCurrentCenterColor;
+    /**
+     * The gradient color current end color.
+     */
+    private int mCurrentEndColor;
+    /**
+     * The sRGB colors to be distributed along the gradient line
+     */
+    private int[] mColors;
+    /**
+     * May be null. The relative positions [0..1] of
+     * each corresponding color in the colors array. If this is null,
+     * the the colors are distributed evenly along the gradient line.
+     */
+    private float[] mPoints;
+    /**
+     * Use gradient content.
+     */
+    private int mGradientContent;
+    /**
+     * Type of gradient. The default type is linear.
+     */
+    private int mGradientType;
+    /**
+     * The gradient shader.
+     */
+    private Shader mGradientShader;
+    /**
+     * Standard orientation constant.
+     * When using a linear gradient, the direction of the gradient.
+     */
+    private int mOrientation;
 
     /**
      * The enum Display type.
@@ -144,6 +248,15 @@ public class RoundImageView extends ImageView {
          * The Type.
          */
         final int type;
+
+        /**
+         * Gets type.
+         *
+         * @return the type
+         */
+        public int getType() {
+            return type;
+        }
     }
 
     /**
@@ -201,7 +314,7 @@ public class RoundImageView extends ImageView {
             TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
 
             borderWidth = a.getDimension(R.styleable.RoundImageView_borderWidth, borderWidth);
-            borderColor = a.getColor(R.styleable.RoundImageView_borderColor, borderColor);
+            mBorderColorStateList = a.getColorStateList(R.styleable.RoundImageView_borderColor);
             displayBorder = a.getBoolean(R.styleable.RoundImageView_displayBorder, displayBorder);
 
             leftTopRadius = a.getDimension(R.styleable.RoundImageView_android_topLeftRadius, leftTopRadius);
@@ -223,12 +336,19 @@ public class RoundImageView extends ImageView {
 
             displayLabel = a.getBoolean(R.styleable.RoundImageView_displayLabel, displayLabel);
             labelText = a.getString(R.styleable.RoundImageView_android_text);
-            labelBackground = a.getColor(R.styleable.RoundImageView_labelBackground, labelBackground);
+            mLabelBackColorStateList = a.getColorStateList(R.styleable.RoundImageView_labelBackground);
             textSize = a.getDimensionPixelSize(R.styleable.RoundImageView_android_textSize, textSize);
-            textColor = a.getColor(R.styleable.RoundImageView_android_textColor, textColor);
+            mTextColorStateList = a.getColorStateList(R.styleable.RoundImageView_android_textColor);
             labelWidth = a.getDimensionPixelSize(R.styleable.RoundImageView_labelWidth, labelWidth);
             labelGravity = a.getInt(R.styleable.RoundImageView_labelGravity, labelGravity);
             startMargin = a.getDimensionPixelSize(R.styleable.RoundImageView_startMargin, startMargin);
+
+            mGradientType = a.getInt(R.styleable.RoundImageView_android_type, GRADIENT_LINEAR_TYPE);
+            mStartColor = a.getColorStateList(R.styleable.RoundImageView_android_startColor);
+            mCenterColor = a.getColorStateList(R.styleable.RoundImageView_android_centerColor);
+            mEndColor = a.getColorStateList(R.styleable.RoundImageView_android_endColor);
+            mGradientContent = a.getInt(R.styleable.RoundImageView_gradientContent, GRADIENT_NONE);
+            mOrientation = a.getInt(R.styleable.RoundImageView_android_orientation, LinearLayout.HORIZONTAL);
 
             final int typefaceIndex = a.getInt(R.styleable.RoundImageView_android_typeface, -1);
             final int styleIndex = a.getInt(R.styleable.RoundImageView_android_textStyle, -1);
@@ -308,7 +428,6 @@ public class RoundImageView extends ImageView {
      * @param mCanvas my canvas
      */
     private void drawMyContent(Canvas mCanvas) {
-
         if (displayType != DisplayType.NORMAL) {
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
@@ -317,9 +436,33 @@ public class RoundImageView extends ImageView {
             mCanvas.drawPath(path, mPaint);
             mPaint.setXfermode(null);
         }
-
+        initGradientShader();
         if (displayBorder) drawBorders(mCanvas);
         if (displayLabel) drawLabels(mCanvas);
+    }
+
+    /**
+     * Initialize the gradient.
+     */
+    private void initGradientShader() {
+        if (mGradientContent != GRADIENT_NONE) {
+            switch (mGradientType) {
+                case GRADIENT_LINEAR_TYPE:
+                    if (mOrientation == LinearLayout.VERTICAL) {
+                        mGradientShader = new LinearGradient(0, 0, 0, getHeight(), mColors, mPoints, Shader.TileMode.CLAMP);
+                    } else {
+                        mGradientShader = new LinearGradient(0, 0, getWidth(), 0, mColors, mPoints, Shader.TileMode.CLAMP);
+                    }
+                    break;
+                case GRADIENT_RADIAL_TYPE:
+                    float radius = (getWidth() > getHeight() ? getWidth() : getHeight()) / 2f;
+                    mGradientShader = new RadialGradient(getWidth() / 2f, getHeight() / 2f, radius, mColors, mPoints, Shader.TileMode.CLAMP);
+                    break;
+                case GRADIENT_SWEEP_TYPE:
+                    mGradientShader = new SweepGradient(getWidth() / 2f, getHeight() / 2f, mColors, mPoints);
+                    break;
+            }
+        }
     }
 
     /**
@@ -330,57 +473,67 @@ public class RoundImageView extends ImageView {
     private void drawLabels(Canvas mCanvas) {
         Path path = new Path();
         Path mTextPath = new Path();
-
+        final float bevelLineLength = getBevelLineLength();
 
         switch (labelGravity) {
             case LEFT_TOP:
                 path.moveTo(startMargin, 0);
-                path.rLineTo(getBevelLineLength(), 0);
-                path.lineTo(0, startMargin + getBevelLineLength());
-                path.rLineTo(0, -getBevelLineLength());
+                path.rLineTo(bevelLineLength, 0);
+                path.lineTo(0, startMargin + bevelLineLength);
+                path.rLineTo(0, -bevelLineLength);
                 path.close();
 
-                mTextPath.moveTo(0, startMargin + getBevelLineLength() / 2f);
-                mTextPath.lineTo(startMargin + getBevelLineLength() / 2f, 0);
+                mTextPath.moveTo(0, startMargin + bevelLineLength / 2f);
+                mTextPath.lineTo(startMargin + bevelLineLength / 2f, 0);
                 break;
             case LEFT_BOTTOM:
                 path.moveTo(startMargin, getHeight());
-                path.rLineTo(getBevelLineLength(), 0);
-                path.lineTo(0, getHeight() - (startMargin + getBevelLineLength()));
-                path.rLineTo(0, getBevelLineLength());
+                path.rLineTo(bevelLineLength, 0);
+                path.lineTo(0, getHeight() - (startMargin + bevelLineLength));
+                path.rLineTo(0, bevelLineLength);
                 path.close();
 
-                mTextPath.moveTo(0, getHeight() - (startMargin + getBevelLineLength() / 2f));
-                mTextPath.lineTo(startMargin + getBevelLineLength() / 2f, getHeight());
+                mTextPath.moveTo(0, getHeight() - (startMargin + bevelLineLength / 2f));
+                mTextPath.lineTo(startMargin + bevelLineLength / 2f, getHeight());
                 break;
             case RIGHT_TOP:
                 path.moveTo(getWidth() - startMargin, 0);
-                path.rLineTo(-getBevelLineLength(), 0);
-                path.lineTo(getWidth(), startMargin + getBevelLineLength());
-                path.rLineTo(0, -getBevelLineLength());
+                path.rLineTo(-bevelLineLength, 0);
+                path.lineTo(getWidth(), startMargin + bevelLineLength);
+                path.rLineTo(0, -bevelLineLength);
                 path.close();
 
-                mTextPath.moveTo(getWidth() - (startMargin + getBevelLineLength() / 2f), 0);
-                mTextPath.lineTo(getWidth(), startMargin + getBevelLineLength() / 2f);
+                mTextPath.moveTo(getWidth() - (startMargin + bevelLineLength / 2f), 0);
+                mTextPath.lineTo(getWidth(), startMargin + bevelLineLength / 2f);
                 break;
             case RIGHT_BOTTOM:
                 path.moveTo(getWidth() - startMargin, getHeight());
-                path.rLineTo(-getBevelLineLength(), 0);
-                path.lineTo(getWidth(), getHeight() - (startMargin + getBevelLineLength()));
-                path.rLineTo(0, getBevelLineLength());
+                path.rLineTo(-bevelLineLength, 0);
+                path.lineTo(getWidth(), getHeight() - (startMargin + bevelLineLength));
+                path.rLineTo(0, bevelLineLength);
                 path.close();
 
-                mTextPath.moveTo(getWidth() - (startMargin + getBevelLineLength() / 2f), getHeight());
-                mTextPath.lineTo(getWidth(), getHeight() - (startMargin + getBevelLineLength() / 2f));
+                mTextPath.moveTo(getWidth() - (startMargin + bevelLineLength / 2f), getHeight());
+                mTextPath.lineTo(getWidth(), getHeight() - (startMargin + bevelLineLength / 2f));
                 break;
         }
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
-        mTextPaint.setColor(labelBackground);
+        if (mGradientContent == GRADIENT_LABEL_BACKGROUND || mGradientContent == GRADIENT_ALL) {
+            mTextPaint.setShader(mGradientShader);
+        } else {
+            mTextPaint.setShader(null);
+            mTextPaint.setColor(labelBackground);
+        }
         mCanvas.drawPath(path, mTextPaint);
 
         mTextPaint.setTextSize(textSize);
-        mTextPaint.setColor(textColor);
+        if (mGradientContent == GRADIENT_LABEL) {
+            mTextPaint.setShader(mGradientShader);
+        } else {
+            mTextPaint.setShader(null);
+            mTextPaint.setColor(textColor);
+        }
         if (null == text) text = "";
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
@@ -405,8 +558,13 @@ public class RoundImageView extends ImageView {
      */
     private void drawBorders(Canvas mCanvas) {
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(borderColor);
         mPaint.setStrokeWidth(borderWidth);
+        if (mGradientContent == GRADIENT_ALL || mGradientContent == GRADIENT_BORDER) {
+            mPaint.setShader(mGradientShader);
+        } else {
+            mPaint.setShader(null);
+            mPaint.setColor(borderColor);
+        }
         Path path = createPath();
         mCanvas.drawPath(path, mPaint);
     }
@@ -419,6 +577,7 @@ public class RoundImageView extends ImageView {
     private Path createPath() {
         Path mPath = new Path();
         float size = borderWidth / 2;
+
         switch (displayType) {
             case CIRCLE:
                 mPath.addCircle(getWidth() / 2f, getHeight() / 2f, getWidth() / 2f - size, Path.Direction.CW);
@@ -691,6 +850,18 @@ public class RoundImageView extends ImageView {
     }
 
     /**
+     * Sets text color.
+     *
+     * @param mTextColorStateList the text color state list
+     */
+    public void setTextColor(ColorStateList mTextColorStateList) {
+        this.mTextColorStateList = mTextColorStateList;
+        if (displayLabel) {
+            invalidate();
+        }
+    }
+
+    /**
      * Sets text size.
      *
      * @param textSize the text size
@@ -713,6 +884,18 @@ public class RoundImageView extends ImageView {
             this.labelBackground = labelBackground;
             if (displayLabel)
                 postInvalidate();
+        }
+    }
+
+    /**
+     * Sets label background.
+     *
+     * @param mLabelBackColorStateList the label background color state list
+     */
+    public void setLabelBackground(ColorStateList mLabelBackColorStateList) {
+        this.mLabelBackColorStateList = mLabelBackColorStateList;
+        if (displayLabel) {
+            invalidate();
         }
     }
 
@@ -851,6 +1034,9 @@ public class RoundImageView extends ImageView {
      * and turns on the fake bold and italic bits in the Paint if the
      * Typeface that you provided does not have all the bits in the
      * style that you specified.
+     *
+     * @param tf    the Typeface
+     * @param style the style
      */
     public void setTypeface(Typeface tf, int style) {
         if (style > 0) {
@@ -880,6 +1066,7 @@ public class RoundImageView extends ImageView {
      * {@link #setTypeface(Typeface, int)} to get the appearance
      * that you actually want.
      *
+     * @param tf the tf
      * @see #getTypeface()
      */
     public void setTypeface(Typeface tf) {
@@ -901,4 +1088,113 @@ public class RoundImageView extends ImageView {
         return mTextPaint.getTypeface();
     }
 
+    /**
+     * Sets gradient type.
+     *
+     * @param gradientType the gradient type
+     */
+    public void setGradientType(int gradientType) {
+        if (mGradientType != gradientType) {
+            mGradientType = gradientType;
+            invalidate();
+        }
+    }
+
+    /**
+     * Sets orientation.
+     *
+     * @param mOrientation the linear shader orientation
+     */
+    public void setOrientation(int mOrientation) {
+        if (this.mOrientation != mOrientation) {
+            this.mOrientation = mOrientation;
+            invalidate();
+        }
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        updateColorState();
+    }
+
+    /**
+     * Update color state.
+     */
+    public void updateColorState() {
+        boolean invalid = false;
+        final int[] drawableState = getDrawableState();
+        if (mBorderColorStateList != null) {
+            int borderColor = mBorderColorStateList.getColorForState(drawableState, 0);
+            if (this.borderColor != borderColor) {
+                this.borderColor = borderColor;
+                invalid = true;
+            }
+        }
+        if (mLabelBackColorStateList != null) {
+            int labelBack = mLabelBackColorStateList.getColorForState(drawableState, 0);
+            if (labelBack != labelBackground) {
+                labelBackground = labelBack;
+                invalid = true;
+            }
+        }
+        if (mTextColorStateList != null) {
+            int textColor = mTextColorStateList.getColorForState(drawableState, 0);
+            if (this.textColor != textColor) {
+                this.textColor = textColor;
+                invalid = true;
+            }
+        }
+        if (mStartColor != null) {
+            int startColor = mStartColor.getColorForState(drawableState, 0);
+            if (startColor != mCurrentStartColor) {
+                mCurrentStartColor = startColor;
+                invalid = true;
+            }
+        }
+        if (mCenterColor != null) {
+            int centerColor = mCenterColor.getColorForState(drawableState, 0);
+            if (centerColor != mCurrentCenterColor) {
+                mCurrentCenterColor = centerColor;
+                invalid = true;
+            }
+        }
+        if (mEndColor != null) {
+            int endColor = mEndColor.getColorForState(drawableState, 0);
+            if (endColor != mCurrentEndColor) {
+                mCurrentEndColor = endColor;
+                invalid = true;
+            }
+        }
+        if (invalid) {
+            if (mStartColor != null && mCenterColor != null && mEndColor != null) {
+                mColors = new int[]{mCurrentStartColor, mCurrentCenterColor, mCurrentEndColor};
+                mPoints = new float[]{0.0f, 0.5f, 1.0f};
+            } else if (mStartColor != null && mEndColor != null) {
+                mColors = new int[]{mCurrentStartColor, mCurrentEndColor};
+                mPoints = new float[]{0.0f, 1.0f};
+            } else if (mStartColor != null && mCenterColor != null) {
+                mColors = new int[]{mCurrentStartColor, mCurrentCenterColor};
+                mPoints = new float[]{0.0f, 0.5f};
+            } else if (mCenterColor != null && mEndColor != null) {
+                mColors = new int[]{mCurrentCenterColor, mCurrentEndColor};
+                mPoints = new float[]{0.5f, 1.0f};
+            }
+            invalidate();
+        }
+    }
+
+    @Override
+    public void invalidate() {
+        postInvalidate();
+    }
+
+    @Override
+    public void postInvalidate() {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            super.postInvalidate();
+        } else {
+            super.invalidate();
+        }
+    }
 }
