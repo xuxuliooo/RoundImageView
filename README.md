@@ -167,7 +167,7 @@
             implementation 'com.github.xuxuliooo:RoundImageView:1.1.2'
         }
 
-* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.1.1) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.1.2/link)
+* <b style="font-size: 18px">第二种方式：从bintray存储库引入</b>    [ ![Download](https://api.bintray.com/packages/xuxuliooo/maven/RoundImageView/images/download.svg?version=1.1.2) ](https://bintray.com/xuxuliooo/maven/RoundImageView/1.1.2/link)
    
     <b style="font-size: 16px">直接在app/build.gradle中添加"implementation 'com.cbman:roundimageview:1.1.2'"</b>
 
