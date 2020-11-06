@@ -1101,6 +1101,23 @@ public class RoundImageView extends ImageView {
     }
 
     /**
+     * Sets gradient content.
+     *
+     * @param gradientContent the gradient content
+     *                        {@link RoundImageView#GRADIENT_NONE,
+     * @link RoundImageView#GRADIENT_BORDER,
+     * @link RoundImageView#GRADIENT_LABEL,
+     * @link RoundImageView#GRADIENT_LABEL_BACKGROUND,
+     * @link RoundImageView#GRADIENT_ALL}
+     */
+    public void setGradientContent(int gradientContent) {
+        if (mGradientContent != gradientContent) {
+            mGradientContent = gradientContent;
+            invalidate();
+        }
+    }
+
+    /**
      * Sets orientation.
      *
      * @param mOrientation the linear shader orientation
